@@ -10,7 +10,11 @@ class WebController extends Controller
 {
     public function index(){
         $list = DoctorSectionModel::query()->get()->toArray();
-        return $list;
+        $data = [
+          'id' =>$list['id'],
+          'section' =>$list['section']
+        ];
+        return $data;
     }
 }
 ?>
