@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/index','Web\WebController@index');
+Route::post('/upload','Upload\UploadController@upload');
