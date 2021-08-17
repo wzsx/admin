@@ -15,4 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/index','Web\WebController@index');
+Route::delete('/section/delete','Web\WebController@deleteSection');
+Route::post('/section/add','Web\WebController@addSection');
+Route::post('/section/subscribe','Web\WebController@contactUs');
+Route::get('/section/getlist','Web\WebController@getList');
 Route::post('/upload','Upload\UploadController@upload');
+Route::get('/home/index','Home\IndexController@index');
+Route::get('/home/docshow','Home\IndexController@doctorShow');
+Route::get('/home/filelist','Home\IndexController@fileList');

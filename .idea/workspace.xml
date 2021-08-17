@@ -117,7 +117,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Model" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -132,6 +132,7 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\laraveladmin\admin\app\Model" />
+      <recent name="D:\laraveladmin\admin\resources\views\web" />
       <recent name="D:\laraveladmin\admin\app\Http\Controllers\Web" />
     </key>
   </component>
@@ -164,6 +165,26 @@
       <workItem from="1627431747476" duration="5361000" />
       <workItem from="1627628853700" duration="4386000" />
       <workItem from="1627691288137" duration="15514000" />
+      <workItem from="1627783304986" duration="7404000" />
+      <workItem from="1627951788921" duration="20608000" />
+      <workItem from="1628123891597" duration="1187000" />
+      <workItem from="1628296975103" duration="2264000" />
+      <workItem from="1628470090442" duration="12325000" />
+      <workItem from="1628555032493" duration="832000" />
+      <workItem from="1628555898095" duration="481000" />
+      <workItem from="1628556408891" duration="83000" />
+      <workItem from="1628556517408" duration="430000" />
+      <workItem from="1628557121766" duration="325000" />
+      <workItem from="1628558912134" duration="285000" />
+      <workItem from="1628559222845" duration="15691000" />
+      <workItem from="1628642477012" duration="7015000" />
+      <workItem from="1628728288216" duration="388000" />
+      <workItem from="1628728702130" duration="10382000" />
+      <workItem from="1628820758486" duration="15218000" />
+      <workItem from="1628901780548" duration="9955000" />
+      <workItem from="1629074671086" duration="326000" />
+      <workItem from="1629075019974" duration="13087000" />
+      <workItem from="1629161087456" duration="9621000" />
     </task>
     <servers />
   </component>
@@ -175,10 +196,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="902" y="361" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1627353292353" />
-    <state x="1273" y="505" key="NewPhpFileDialog" timestamp="1627630733149">
+    <state x="1273" y="505" key="NewPhpFileDialog" timestamp="1629082876665">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1273" y="505" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1627630733149" />
+    <state x="1273" y="505" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1629082876665" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1629168164063">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1629168164063" />
     <state x="722" y="468" width="601" height="536" key="find.popup" timestamp="1627716949775">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
