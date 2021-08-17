@@ -38,7 +38,7 @@ class WebController extends Controller
         }
         $add = DoctorSectionModel::query()->insert(['section' => $section]);
         if ($add) {
-            return ['code' => 200, 'msg' => '添加成功', 'data' => []];
+            return ['code' => 0, 'msg' => '添加成功', 'data' => []];
         }
         return ['code' => 40001, 'msg' => '添加失败'];
     }
@@ -49,9 +49,9 @@ class WebController extends Controller
         $section = $request->input('section');
         $delete = DoctorSectionModel::query()->where('section', $section)->delete();
         if ($delete) {
-            return ['code' => 200, 'msg' => '删除失败', 'data' => []];
+            return ['code' => 40001, 'msg' => '删除失败', 'data' => []];
         }
-        return ['code' => 40001, 'msg' => '删除成功'];
+        return ['code' => 0, 'msg' => '删除成功'];
     }
 
     //添加联系我们
@@ -67,7 +67,7 @@ class WebController extends Controller
         }
         $list = AdvisoryLogModel::query()->insert(['user_name'=>$userName,'tel'=>$tel,'section'=>$section,'info'=>$info,'datetime'=>$time]);
         if($list){
-            return ['code' => 200, 'msg' => '预约成功', 'data' => []];
+            return ['code' => 0, 'msg' => '预约成功', 'data' => []];
         }
         return ['code' => 40001, 'msg' => '预约失败,请重试'];
     }
