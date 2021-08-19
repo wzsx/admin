@@ -23,3 +23,4 @@ Route::post('/upload','Upload\UploadController@upload');
 Route::get('/home/index','Home\IndexController@index');
 Route::get('/home/docshow','Home\IndexController@doctorShow');
 Route::get('/home/filelist','Home\IndexController@fileList');
+Route::post('/home/docdetails','Home\IndexController@doctorDetails');

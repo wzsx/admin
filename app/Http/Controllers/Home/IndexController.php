@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Home;
 use App\Model\DoctorInfoModel;
 use App\Model\DoctorTagModel;
+use App\Model\UserEvaluateModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\DoctorSectionModel;
@@ -42,7 +43,7 @@ class IndexController extends Controller
         ->select($field)->get()->toArray();
         $id = array_column($list,'id','id');
         $tag = DoctorTagModel::query()->whereIn('doctor_id',$id)->select('doctor_id','doctor_tag')->get()->toArray();
-                $res = array();
+        $res = array();
         foreach($tag as $item) {
             if(! isset($res[$item['doctor_id']])) $res[$item['doctor_id']] = $item;
             else $res[$item['doctor_id']]['doctor_tag'] .= ',' . $item['doctor_tag'];
@@ -53,6 +54,27 @@ class IndexController extends Controller
             $v['doctor_tag'] = explode(',',$ass[$v['id']]);
         }
         return ['code' => 0, 'msg' => '成功','data'=>$list];
+    }
+    //医生详情
+    public function doctorDetails(Request $request){
+        $params = $request->all();
+        $id = $params['id'];
+        $field = ['d.id','section_id','doctor_name','doctor_img','doctor_message','doctor_sort',
+            'hospital','sdo','work_years','doctor_vita','section'];
+        $list = DoctorInfoModel::query()->from('doctor_info as d')
+            ->join('doctor_section as s','s.id','=','d.section_id')
+            ->where('d.id',$id)
+            ->select($field)->get()->toArray();
+        $id = array_column($list,'id','id');
+        $num = UserEvaluateModel::query()->where('doctor_id',$id)->count('*');
+        $evaluate = UserEvaluateModel::query()->where('doctor_id',$id)->select('evaluate','datetime')->get()->toArray();
+        $list[0]['evaluate_num'] = $num;
+        $list[0]['patient_evaluate'] = $evaluate;
+        return ['code' => 0, 'msg' => '成功','data'=>$list];
+    }
+    //筛选医生列表
+    public function filterList(Request $request){
+
     }
 }
 ?>
