@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Home;
 use App\Model\DoctorInfoModel;
 use App\Model\DoctorTagModel;
+use App\Model\SonSectionModel;
 use App\Model\UserEvaluateModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,15 @@ class IndexController extends Controller
     public function index()
     {
         $list = DoctorSectionModel::query()->select('*')->get()->toArray();
-        return ['code' => 0, 'msg' => '成功','data'=>$list];
+        $arr = [
+            'name' => '更多',
+            'img'  => 'https://image.kuaiqitong.com/2375phpm94xKy1629079107210816.png'
+        ];
+        $data = [
+          'list'=>$list,
+          'more'=>$arr
+        ];
+        return ['code' => 0, 'msg' => '成功','data'=>$data];
     }
     //知名专家与三甲专家义诊首页展示
     public function doctorShow(){
@@ -71,6 +80,26 @@ class IndexController extends Controller
         $list[0]['evaluate_num'] = $num;
         $list[0]['patient_evaluate'] = $evaluate;
         return ['code' => 0, 'msg' => '成功','data'=>$list];
+    }
+    //一级科室列表external
+    public function externalLists(){
+        $field = ['id','section'];
+        $list = DoctorSectionModel::query()->select($field)->get()->toArray();
+        return ['code' => 0, 'msg' => '成功','data'=>$list];
+//        $list = DoctorSectionModel::query()->from('doctor_section as d')
+//            ->join('son_section as s','s.section_id','=','d.id')
+//            ->select($field)->get()->toArray();
+//        $section_id = array_column($list,'id','id');
+//        $need_section = SonSectionModel::query()->whereIn('section_id',$section_id)->select('*')->get()->toArray();
+    }
+    //二级分类列表interior
+    public function interiorLists(Request $request){
+        $parmas = $request->all();
+        $section_id = $parmas['id'];
+        $need_section = SonSectionModel::query()->where('section_id',$section_id)->select('*')->get()->toArray();
+        return ['code' => 0, 'msg' => '成功','data'=>$need_section];
+//        $section_id = array_column($list,'id','id');
+//        $need_section = SonSectionModel::query()->whereIn('section_id',$section_id)->select('*')->get()->toArray();
     }
     //筛选医生列表
     public function filterList(Request $request){

@@ -24,3 +24,5 @@ Route::get('/home/index','Home\IndexController@index');
 Route::get('/home/docshow','Home\IndexController@doctorShow');
 Route::get('/home/filelist','Home\IndexController@fileList');
 Route::post('/home/docdetails','Home\IndexController@doctorDetails');
+Route::get('/section/externallists','Home\IndexController@externalLists');
+Route::post('/section/interiorlists','Home\IndexController@interiorLists');
