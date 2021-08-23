@@ -81,25 +81,23 @@ class IndexController extends Controller
         $list[0]['patient_evaluate'] = $evaluate;
         return ['code' => 0, 'msg' => '成功','data'=>$list];
     }
-    //一级科室列表external
-    public function externalLists(){
-        $field = ['id','section'];
-        $list = DoctorSectionModel::query()->select($field)->get()->toArray();
-        return ['code' => 0, 'msg' => '成功','data'=>$list];
-//        $list = DoctorSectionModel::query()->from('doctor_section as d')
-//            ->join('son_section as s','s.section_id','=','d.id')
-//            ->select($field)->get()->toArray();
-//        $section_id = array_column($list,'id','id');
-//        $need_section = SonSectionModel::query()->whereIn('section_id',$section_id)->select('*')->get()->toArray();
-    }
-    //二级分类列表interior
-    public function interiorLists(Request $request){
-        $parmas = $request->all();
-        $section_id = $parmas['id'];
-        $need_section = SonSectionModel::query()->where('section_id',$section_id)->select('*')->get()->toArray();
-        return ['code' => 0, 'msg' => '成功','data'=>$need_section];
-//        $section_id = array_column($list,'id','id');
-//        $need_section = SonSectionModel::query()->whereIn('section_id',$section_id)->select('*')->get()->toArray();
+    //科室列表
+    public function sectionList(){
+        $field = ['d.id','d.section','s.s_id','s.section_id','s.son_section_name'];
+        $list = DoctorSectionModel::query()->from('doctor_section as d')
+            ->join('son_section as s','s.section_id','=','d.id')
+            ->select($field)->get()->toArray();
+        $arr = [];
+        foreach ($list as $item){
+            if(isset($arr[$item['id']])){
+                $arr[$item['id']]['sub'][]= ['s_id'=>$item['s_id'],'son_section_name'=>$item['son_section_name']];
+            }else{
+                $arr[$item['id']]['id'] = $item['id'];
+                $arr[$item['id']]['section'] = $item['section'];
+                $arr[$item['id']]['sub'][]=['s_id'=>$item['s_id'],'son_section_name'=>$item['son_section_name']];
+            }
+        }
+        return ['code' => 0, 'msg' => '成功','data'=>array_values($arr)];
     }
     //筛选医生列表
     public function filterList(Request $request){
