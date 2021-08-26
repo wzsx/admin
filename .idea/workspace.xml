@@ -117,7 +117,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Model" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/services/Doctor" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -132,6 +132,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\laraveladmin\admin\app\services\Doctor" />
       <recent name="D:\laraveladmin\admin\app\Model" />
       <recent name="D:\laraveladmin\admin\resources\views\web" />
       <recent name="D:\laraveladmin\admin\app\Http\Controllers\Web" />
@@ -191,7 +192,10 @@
       <workItem from="1629333172700" duration="11639000" />
       <workItem from="1629419552203" duration="19857000" />
       <workItem from="1629506403518" duration="17633000" />
-      <workItem from="1629678544381" duration="6743000" />
+      <workItem from="1629678544381" duration="25132000" />
+      <workItem from="1629786828838" duration="7214000" />
+      <workItem from="1629851318865" duration="18293000" />
+      <workItem from="1629945044650" duration="3049000" />
     </task>
     <servers />
   </component>
