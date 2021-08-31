@@ -88,7 +88,6 @@ class IndexController extends Controller
         $list = DoctorSectionModel::query()->from('doctor_section as d')
             ->join('son_section as s','s.section_id','=','d.id')
             ->select($field)->get()->toArray();
-
         $arr = [];
         foreach ($list as $item){
             if(isset($arr[$item['id']])){
@@ -104,22 +103,49 @@ class IndexController extends Controller
     //筛选医生列表
     public function filterList(Request $request){
         $params = $request->all();
-        $section_id = $params['section_id'];
+        $section_id = $params['section_id']??null;
         $s_id = $params['s_id']??null;
-        $price = $params['price']??null;
+        $price = json_decode($params['price'],true)??null;
+        $doctor_sort = $params['doctor_sort']??null;
         $field = ['d.id','section_id','doctor_name','doctor_img','doctor_message','doctor_sort','doctor_school',
             'hospital','sdo','praise','evaluate','inquiry_cost','section'];
-        if (!$s_id || $price) {
-//            if($price==)
-            $list = DoctorServices::doctorList($field,['inquiry_cost','',$price]);
-
-        }elseif ($s_id || !$price){
-            $list = DoctorServices::doctorList($field,['s_id'=>$s_id]);
-            return ['code' => 0, 'msg' => '成功','data'=>$list];
-        }elseif(!$s_id || !$price){
-            $list = DoctorServices::doctorList($field,[]);
+        if($section_id!=null){
+            if (!$s_id && $price) {
+                $list = DoctorServices::doctorList($field,['section_id'=>$section_id],$price);
+                return ['code' => 0, 'msg' => '成功','data'=>$list];
+            }elseif ($s_id && !$price){
+                $list = DoctorServices::doctorList($field,['section_id'=>$section_id,'s_id'=>$s_id],[0,1000]);
+                return ['code' => 0, 'msg' => '成功','data'=>$list];
+            }elseif(!$s_id && !$price && !$doctor_sort){
+                $list = DoctorServices::doctorList($field,['section_id'=>$section_id],[0,1000]);
+                return ['code' => 0, 'msg' => '成功','data'=>$list];
+            }elseif ($s_id && $price){
+                $list = DoctorServices::doctorList($field,['section_id'=>$section_id,'s_id'=>$s_id],[$price]);
+                return ['code' => 0, 'msg' => '成功','data'=>$list];
+            }elseif (!$s_id && !$price && $doctor_sort){
+                $list = DoctorServices::doctorList($field,['section_id'=>$section_id,'doctor_sort'=>$doctor_sort],[0,1000]);
+                return ['code' => 0, 'msg' => '成功','data'=>$list];
+            }elseif (!$s_id && $price && $doctor_sort){
+                $list = DoctorServices::doctorList($field,['section_id'=>$section_id,'doctor_sort'=>$doctor_sort],$price);
+                return ['code' => 0, 'msg' => '成功','data'=>$list];
+            }elseif ($s_id && $price && $doctor_sort){
+                $list = DoctorServices::doctorList($field,['section_id'=>$section_id,'s_id'=>$s_id,'doctor_sort'=>$doctor_sort],$price);
+                return ['code' => 0, 'msg' => '成功','data'=>$list];
+            }
+        }
+        if($price!=null){
+            if($doctor_sort){
+                $list = DoctorServices::doctorList($field,['doctor_sort'=>$doctor_sort],$price);
+                return ['code' => 0, 'msg' => '成功','data'=>$list];
+            }
+            $list = DoctorServices::doctorList($field,[],$price);
             return ['code' => 0, 'msg' => '成功','data'=>$list];
         }
-    }
+        if($doctor_sort!=null){
+            $list = DoctorServices::doctorList($field,['doctor_sort'=>$doctor_sort],[0,1000]);
+            return ['code' => 0, 'msg' => '成功','data'=>$list];
+        }
+        }
+
 }
 ?>
