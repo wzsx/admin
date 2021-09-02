@@ -146,6 +146,10 @@ class IndexController extends Controller
             return ['code' => 0, 'msg' => '成功','data'=>$list];
         }
         }
-
+        //义诊科室列表
+        public function freeSectionList(){
+            $list = DoctorServices::freeSectionList();
+            return ['code' => 0, 'msg' => '成功','data'=>$list];
+        }
 }
 ?>

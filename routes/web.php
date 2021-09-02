@@ -26,4 +26,5 @@ Route::get('/home/filelist','Home\IndexController@fileList');
 Route::post('/home/docdetails','Home\IndexController@doctorDetails');
 Route::get('/section/sectionlist','Home\IndexController@sectionList');
 Route::post('/section/filterlist','Home\IndexController@filterList');
+Route::get('/section/freesectionlist','Home\IndexController@freeSectionList');
 
