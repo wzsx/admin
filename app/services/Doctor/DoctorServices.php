@@ -81,7 +81,8 @@ class DoctorServices {
                         'inquiry_cost'=>$item['inquiry_cost'],
                         'section'=>$item['section'],
                         'free_cost'=>$item['free_cost'],
-                        'if_kab'=>$item['if_kab']
+                        'if_kab'=>$item['if_kab'],
+                        'doctor_tag'=>$item['doctor_tag']
                     ];
             }else{
                 $arrlist[$item['section_id']]['id'] = $item['section_id'];
@@ -101,7 +102,8 @@ class DoctorServices {
                         'inquiry_cost'=>$item['inquiry_cost'],
                         'section'=>$item['section'],
                         'free_cost'=>$item['free_cost'],
-                        'if_kab'=>$item['if_kab']
+                        'if_kab'=>$item['if_kab'],
+                        'doctor_tag'=>$item['doctor_tag']
                     ];
             }
         }
