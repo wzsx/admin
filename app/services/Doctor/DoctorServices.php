@@ -45,7 +45,7 @@ class DoctorServices {
     public static function freeSectionList(){
         $section = DoctorSectionModel::query()->select('id','section')->get()->toArray();
         $field = ['d.id','section_id','doctor_name','doctor_img','doctor_message','doctor_sort','doctor_school',
-            'hospital','sdo','praise','evaluate','inquiry_cost','section'];
+            'hospital','sdo','praise','evaluate','inquiry_cost','section','free_cost','if_kab'];
         $doctor_list = DoctorInfoModel::query()->from('doctor_info as d')
             ->join('doctor_section as s','s.id','=','d.section_id')
             ->where(['sort'=>2])
@@ -79,7 +79,9 @@ class DoctorServices {
                         'praise'=>$item['praise'],
                         'evaluate'=>$item['evaluate'],
                         'inquiry_cost'=>$item['inquiry_cost'],
-                        'section'=>$item['section']
+                        'section'=>$item['section'],
+                        'free_cost'=>$item['free_cost'],
+                        'if_kab'=>$item['if_kab']
                     ];
             }else{
                 $arrlist[$item['section_id']]['id'] = $item['section_id'];
@@ -97,7 +99,9 @@ class DoctorServices {
                         'praise'=>$item['praise'],
                         'evaluate'=>$item['evaluate'],
                         'inquiry_cost'=>$item['inquiry_cost'],
-                        'section'=>$item['section']
+                        'section'=>$item['section'],
+                        'free_cost'=>$item['free_cost'],
+                        'if_kab'=>$item['if_kab']
                     ];
             }
         }

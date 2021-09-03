@@ -34,9 +34,9 @@ class IndexController extends Controller
         $field = ['id','doctor_name','doctor_img','doctor_sort','doctor_school'];
         $fields = ['id','doctor_name','doctor_img','doctor_sort','doctor_school','sdo'];
         //名医
-        $expertDoc = DoctorInfoModel::query()->where('sort',1)->select($field)->get()->toArray();
+        $expertDoc = DoctorInfoModel::query()->where(['sort'=>1,'if_kab'=>1])->select($field)->get()->toArray();
         //义诊
-        $msapDoc = DoctorInfoModel::query()->where('sort',2)->select($fields)->get()->toArray();
+        $msapDoc = DoctorInfoModel::query()->where(['sort'=>2,'if_kab'=>1])->select($fields)->get()->toArray();
         $list = [
             'expertDoc' => $expertDoc,
             'msapDoc' => $msapDoc
