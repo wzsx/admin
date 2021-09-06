@@ -50,6 +50,7 @@ class IndexController extends Controller
         'hospital','sdo','praise','evaluate','inquiry_cost','section'];
         $list = DoctorInfoModel::query()->from('doctor_info as d')
             ->join('doctor_section as s','s.id','=','d.section_id')
+            ->where('sort','!=',2)
         ->select($field)->get()->toArray();
         $id = array_column($list,'id','id');
         $tag = DoctorTagModel::query()->whereIn('doctor_id',$id)->select('doctor_id','doctor_tag')->get()->toArray();
@@ -70,7 +71,7 @@ class IndexController extends Controller
         $params = $request->all();
         $id = $params['id'];
         $field = ['d.id','section_id','doctor_name','doctor_img','doctor_message','doctor_sort',
-            'hospital','sdo','work_years','doctor_vita','section'];
+            'hospital','sdo','work_years','doctor_vita','section','inquiry_cost'];
         $list = DoctorInfoModel::query()->from('doctor_info as d')
             ->join('doctor_section as s','s.id','=','d.section_id')
             ->where('d.id',$id)
@@ -90,6 +91,7 @@ class IndexController extends Controller
             ->select($field)->get()->toArray();
         $arr = [];
         foreach ($list as $item){
+
             if(isset($arr[$item['id']])){
                 $arr[$item['id']]['sub'][]= ['s_id'=>$item['s_id'],'son_section_name'=>$item['son_section_name']];
             }else{

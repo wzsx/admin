@@ -90,6 +90,8 @@
       <path value="$PROJECT_DIR$/vendor/filp/whoops" />
       <path value="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server" />
       <path value="$PROJECT_DIR$/vendor/johnlui/aliyun-oss" />
+      <path value="$PROJECT_DIR$/vendor/mrgoon/aliyun-sms" />
+      <path value="$PROJECT_DIR$/vendor/mrgoon/aliyun-sms-sdk" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
