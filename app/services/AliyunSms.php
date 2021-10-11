@@ -10,7 +10,7 @@ class AliyunSms
     const VERIFICATION_CODE = 'verification_code';
     //模板CODE
     public static $templateCodes = [
-        self::VERIFICATION_CODE => 'SMS_XXXXXXXXXX',
+        self::VERIFICATION_CODE => 'SMS_151690577',
     ];
     /**
      * 发送短信

@@ -109,6 +109,7 @@
       <path value="$PROJECT_DIR$/vendor/johnlui/aliyun-oss" />
       <path value="$PROJECT_DIR$/vendor/mrgoon/aliyun-sms" />
       <path value="$PROJECT_DIR$/vendor/mrgoon/aliyun-sms-sdk" />
+      <path value="$PROJECT_DIR$/vendor/predis/predis" />
     </include_path>
   </component>
   <component name="ProjectId" id="1vL41O6gW1pRnznswcraVLmtZ3k" />
@@ -135,10 +136,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\laraveladmin\admin\app\Model" />
+      <recent name="D:\laraveladmin\admin\app\Http\Controllers\Shop" />
+      <recent name="D:\laraveladmin\admin\app\Http\Controllers\AppUser" />
+      <recent name="D:\laraveladmin\admin\app\services\Sms" />
       <recent name="D:\laraveladmin\admin\app\Http\Controllers\Sms" />
-      <recent name="D:\laraveladmin\admin\app\services" />
-      <recent name="D:\laraveladmin\admin\app\services\Doctor" />
-      <recent name="D:\laraveladmin\admin\resources\views\web" />
     </key>
   </component>
   <component name="RunManager">
@@ -208,7 +209,35 @@
       <workItem from="1630542931251" duration="18587000" />
       <workItem from="1630628993078" duration="8937000" />
       <workItem from="1630802386404" duration="14954000" />
-      <workItem from="1630888152354" duration="9443000" />
+      <workItem from="1630888152354" duration="17820000" />
+      <workItem from="1630974750006" duration="14831000" />
+      <workItem from="1631061245046" duration="17510000" />
+      <workItem from="1631147239813" duration="20001000" />
+      <workItem from="1631233649824" duration="21151000" />
+      <workItem from="1631320111269" duration="14381000" />
+      <workItem from="1631444955056" duration="17616000" />
+      <workItem from="1631578782906" duration="18336000" />
+      <workItem from="1631666059817" duration="23550000" />
+      <workItem from="1631752674646" duration="22297000" />
+      <workItem from="1631838572062" duration="16573000" />
+      <workItem from="1631867716439" duration="2745000" />
+      <workItem from="1631925766062" duration="623000" />
+      <workItem from="1631927586982" duration="13559000" />
+      <workItem from="1632270293082" duration="14132000" />
+      <workItem from="1632443695318" duration="10290000" />
+      <workItem from="1632529371027" duration="14987000" />
+      <workItem from="1632617019317" duration="17605000" />
+      <workItem from="1632702683331" duration="20825000" />
+      <workItem from="1632789844137" duration="14564000" />
+      <workItem from="1632875548966" duration="17198000" />
+      <workItem from="1632962275812" duration="18275000" />
+      <workItem from="1633307005703" duration="7023000" />
+      <workItem from="1633394034765" duration="17743000" />
+      <workItem from="1633479661837" duration="15973000" />
+      <workItem from="1633567337569" duration="14816000" />
+      <workItem from="1633653335408" duration="15782000" />
+      <workItem from="1633739764245" duration="17757000" />
+      <workItem from="1633912272202" duration="6491000" />
     </task>
     <servers />
   </component>
@@ -220,14 +249,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="691" y="417" width="834" height="209" key="#Custom_Plugin_Repositories/0.0.1920.1040@0.0.1920.1040" timestamp="1629276672428" />
-    <state x="902" y="361" key="FileChooserDialogImpl" timestamp="1630635199977">
+    <state x="808" y="230" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1631081421612">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="902" y="361" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1630635199977" />
-    <state x="1273" y="505" key="NewPhpFileDialog" timestamp="1629082876665">
+    <state x="808" y="230" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631081421612" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1633919200666">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1273" y="505" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1629082876665" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1633919200666" />
+    <state x="902" y="361" key="FileChooserDialogImpl" timestamp="1631610576538">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="902" y="361" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1631610576538" />
+    <state x="1273" y="505" key="NewPhpFileDialog" timestamp="1630916728730">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1273" y="505" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1630916728730" />
     <state x="320" y="163" key="SettingsEditor" timestamp="1629276803650">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -236,9 +273,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1629168164063" />
-    <state x="722" y="468" width="601" height="536" key="find.popup" timestamp="1630911996369">
+    <state x="722" y="468" width="601" height="536" key="find.popup" timestamp="1630920205074">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="722" y="468" width="601" height="536" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1630911996369" />
+    <state x="722" y="468" width="601" height="536" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1630920205074" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1632464879467">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1632464879467" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1633653848140">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1633653848140" />
   </component>
 </project>

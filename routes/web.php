@@ -27,4 +27,8 @@ Route::post('/home/docdetails','Home\IndexController@doctorDetails');
 Route::get('/section/sectionlist','Home\IndexController@sectionList');
 Route::post('/section/filterlist','Home\IndexController@filterList');
 Route::get('/section/freesectionlist','Home\IndexController@freeSectionList');
-
+Route::post('/sms/sendcode','Sms\SmsLogController@sendCode');
+Route::post('/user/register','AppUser\UserController@register');
+//商城
+Route::get('/category/goodscategorylist','Shop\GoodsCategoryController@goodsCategoryList');
+Route::post('/category/insert','Shop\GoodsCategoryController@goodsCategoryInsert');
