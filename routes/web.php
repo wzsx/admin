@@ -35,3 +35,6 @@ Route::post('/category/insert','Shop\GoodsCategoryController@goodsCategoryInsert
 Route::post('/goods/insert','Shop\GoodsController@goodsInsert');
 //Wx
 Route::post('/wx/code','Wx\WxController@codeSession');
+
+Route::post('/wx/session','Wx\WxController@Session');
+Route::post('/wx/sa','Wx\WxController@aaad');
