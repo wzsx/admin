@@ -32,3 +32,6 @@ Route::post('/user/register','AppUser\UserController@register');
 //商城
 Route::get('/category/goodscategorylist','Shop\GoodsCategoryController@goodsCategoryList');
 Route::post('/category/insert','Shop\GoodsCategoryController@goodsCategoryInsert');
+Route::post('/goods/insert','Shop\GoodsController@goodsInsert');
+//Wx
+Route::post('/wx/code','Wx\WxController@code2Session');

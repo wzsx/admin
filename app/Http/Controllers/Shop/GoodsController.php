@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Shop;
+use App\Model\GoodsCarouselModel;
 use App\Model\GoodsModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,10 +14,11 @@ class GoodsController extends Controller
     public function goodsInsert(Request $request)
     {
         $params = $request->all();
-        $goods_id = session_create_id();
+//        $goods_id = session_create_id();
+        $goods_carousel= ['https://image.kuaiqitong.com/5034phpfNS2uf1633920388211011.png','https://image.kuaiqitong.com/1332phpXjgpka1633920746211011.png','https://image.kuaiqitong.com/9314phpcBNBir1633920781211011.png'];
         $goods_name = $params['goods_name'];
         $goods_lord_img = $params['goods_lord_img'];
-        $goods_carousel = $params['goods_carousel'];//轮播图
+//        $goods_carousel = $params['goods_carousel'];//轮播图
         $goods_about = $params['goods_about'];
         $goods_details_img = $params['goods_details_img'];
         $goods_price = $params['goods_price'];
@@ -27,18 +29,20 @@ class GoodsController extends Controller
         if($info){
             return ['code' => 200001, 'msg' => '添加失败,该商品已存在'];
         }
-        $goods = GoodsModel::query()->insert(['goods_id' => $goods_id,'goods_name'=>$goods_name,'goods_lord_img'=>$goods_lord_img,'goods_about'=>$goods_about,'goods_details_img'=>$goods_details_img,'goods_price'=>$goods_price,'goods_cate'=>$goods_cate,'if_show'=>$if_show,'$created_at'=>$$created_at]);
-
-        $list = DoctorSectionModel::query()->where('id','<=',9)->select('*')->get()->toArray();
-        $arr = [
-            'name' => '更多',
-            'img'  => 'https://image.kuaiqitong.com/2375phpm94xKy1629079107210816.png'
-        ];
-        $data = [
-          'list'=>$list,
-          'more'=>$arr
-        ];
-        return ['code' => 0, 'msg' => '成功','data'=>$data];
+        $goods = GoodsModel::query()->insert(['goods_name'=>$goods_name,'goods_lord_img'=>$goods_lord_img,'goods_about'=>$goods_about,'goods_details_img'=>$goods_details_img,'goods_price'=>$goods_price,'goods_cate'=>$goods_cate,'if_show'=>$if_show,'created_at'=>$created_at]);
+        $goods_info = GoodsModel::query()->where(['goods_name'=>$goods_name])->select('goods_id')->first()->toArray();
+//        var_dump($goods_id);
+//        var_dump($goods_info['goods_id']);
+        foreach ($goods_carousel as $key =>$v) {
+//            var_dump($v);
+//            var_dump($goods_info['goods_id']);
+            $carousel = GoodsCarouselModel::query()->insert(['carousel_id' => $goods_info['goods_id'],'goods_img' => $v]);
+        }
+            if($carousel || $goods){
+                return ['code' => 0, 'msg' => '添加成功','data'=>[]];
+            }
+//        $carousel = GoodsCarouselModel::query()->insert();
+//        return ['code' => 0, 'msg' => '成功','data'=>$data];
     }
     //
 

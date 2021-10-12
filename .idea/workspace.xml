@@ -110,6 +110,13 @@
       <path value="$PROJECT_DIR$/vendor/mrgoon/aliyun-sms" />
       <path value="$PROJECT_DIR$/vendor/mrgoon/aliyun-sms-sdk" />
       <path value="$PROJECT_DIR$/vendor/predis/predis" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
     </include_path>
   </component>
   <component name="ProjectId" id="1vL41O6gW1pRnznswcraVLmtZ3k" />
@@ -120,7 +127,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Model" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/config" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -135,11 +142,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\laraveladmin\admin\config" />
+      <recent name="D:\laraveladmin\admin\app\Http\Controllers\Wx" />
       <recent name="D:\laraveladmin\admin\app\Model" />
       <recent name="D:\laraveladmin\admin\app\Http\Controllers\Shop" />
       <recent name="D:\laraveladmin\admin\app\Http\Controllers\AppUser" />
-      <recent name="D:\laraveladmin\admin\app\services\Sms" />
-      <recent name="D:\laraveladmin\admin\app\Http\Controllers\Sms" />
     </key>
   </component>
   <component name="RunManager">
@@ -237,7 +244,8 @@
       <workItem from="1633567337569" duration="14816000" />
       <workItem from="1633653335408" duration="15782000" />
       <workItem from="1633739764245" duration="17757000" />
-      <workItem from="1633912272202" duration="6491000" />
+      <workItem from="1633912272202" duration="15941000" />
+      <workItem from="1633999246691" duration="8335000" />
     </task>
     <servers />
   </component>
@@ -281,9 +289,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1632464879467" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1633653848140">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1633999775367">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1633653848140" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1633999775367" />
   </component>
 </project>
