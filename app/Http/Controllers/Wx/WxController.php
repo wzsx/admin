@@ -9,19 +9,19 @@ class WxController extends Controller
 {
     var $appId = 'wx5c3075128baa7866';
     var $appSecret = '2af4b5b48cbde19665fa6a1209c8ac12';
+    var $wxUrl = 'https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code';
 
     //获取用户登录信息
     public function codeSession(Request $request)
     {
         $code = $request->input('code');
-        $url=sprintf(config('wechatUrl.url'),config('wechatUrl.appid'),config('wechatUrl.secret'),$code);
+        $url=sprintf($this->wxUrl,$this->appId,$this->appSecret,$code);
+//        $url=sprintf(config('wechatUrl.url'),config('wechatUrl.appid'),config('wechatUrl.secret'),$code);
         $client=new Client(['timeout'=>5,'verify'=>false]);
-        var_dump($url);
-//        $res=$client->post($url);
-//        var_dump($res);
-//        $data=(string)$res->getBody();
-//        $arr=json_decode($data,true);
-//        return ['code'=>200,'msg'=>'ok','data'=>$arr];
+        $res=$client->post($url);
+        $data=(string)$res->getBody();
+        $arr=json_decode($data,true);
+        return ['code'=>200,'msg'=>'ok','data'=>$arr];
 
     }
 
@@ -29,7 +29,7 @@ class WxController extends Controller
     public function Session(Request $request)
     {
         $code = $request->input('code');
-        $url=sprintf(config('wechatUrl.url'),config('wechatUrl.appid'),config('wechatUrl.secret'),$code);
+        $url=sprintf($this->wxUrl,$this->appId,$this->appSecret,$code);
         $client=new Client(['timeout'=>5,'verify'=>false]);
         $res=$client->get($url);
         $data=(string)$res->getBody();
