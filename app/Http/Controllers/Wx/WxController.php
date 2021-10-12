@@ -13,7 +13,13 @@ class WxController extends Controller
     //获取用户登录信息
     public function codeSession(Request $request)
     {
-        var_dump('雷海荣');
+        $code = $request->input('code');
+        $url=sprintf(config('wechatUrl.url'),config('wechatUrl.appid'),config('wechatUrl.secret'),$code);
+        $client=new Client(['timeout'=>5,'verify'=>false]);
+        $res=$client->get($url);
+        $data=(string)$res->getBody();
+        $arr=json_decode($data,true);
+        return ['code'=>200,'msg'=>'ok','data'=>$arr];
 
     }
 
