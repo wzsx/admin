@@ -12,7 +12,7 @@ class WxController extends Controller
     var $appSecret = '2af4b5b48cbde19665fa6a1209c8ac12';
 
     //获取用户登录信息
-    public function code2Session(Request $request)
+    public function codeSession(Request $request)
     {
         var_dump(111);
 //        $code = $request->input('code');
