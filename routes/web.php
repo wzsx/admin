@@ -34,7 +34,7 @@ Route::get('/category/goodscategorylist','Shop\GoodsCategoryController@goodsCate
 Route::post('/category/insert','Shop\GoodsCategoryController@goodsCategoryInsert');
 Route::post('/goods/insert','Shop\GoodsController@goodsInsert');
 //Wx
-Route::get('/wx/code','Wx\WxController@codeSession');
+Route::post('/wx/code','Wx\WxController@codeSession');
 
 Route::get('/wx/session','Wx\WxController@Session');
 Route::get('/wx/sa','Wx\WxController@aaad');
