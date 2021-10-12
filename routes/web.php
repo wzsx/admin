@@ -37,4 +37,4 @@ Route::post('/goods/insert','Shop\GoodsController@goodsInsert');
 Route::post('/wx/code','Wx\WxController@codeSession');
 
 Route::post('/wx/session','Wx\WxController@Session');
-Route::post('/wx/sa','Wx\WxController@aaad');
+Route::get('/wx/sa','Wx\WxController@aaad');
