@@ -33,6 +33,9 @@ Route::post('/user/register','AppUser\UserController@register');
 Route::get('/category/goodscategorylist','Shop\GoodsCategoryController@goodsCategoryList');
 Route::post('/category/insert','Shop\GoodsCategoryController@goodsCategoryInsert');
 Route::post('/goods/insert','Shop\GoodsController@goodsInsert');
+Route::get('/home/carouselimg','Shop\HomeGoodsController@homeCarouselImg');
+Route::get('/home/showimg','Shop\HomeGoodsController@homeShowImg');
+Route::get('/home/categoods','Shop\HomeGoodsController@homeCateGoods');
 //Wx
 Route::get('/wx/code','Wx\WxController@codeSession');
 

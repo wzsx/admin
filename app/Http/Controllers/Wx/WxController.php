@@ -21,8 +21,7 @@ class WxController extends Controller
         $res=$client->post($url);
         $data=(string)$res->getBody();
         $arr=json_decode($data,true);
-        return ['code'=>200,'msg'=>'ok','data'=>$arr];
-
+        return ['code'=>200,'msg'=>'ok','data'=>['user_id'=>$arr['openid']]];
     }
 
     //获取用户登录信息

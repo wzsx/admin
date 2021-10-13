@@ -15,7 +15,7 @@ class GoodsController extends Controller
     {
         $params = $request->all();
 //        $goods_id = session_create_id();
-        $goods_carousel= ['https://image.kuaiqitong.com/5034phpfNS2uf1633920388211011.png','https://image.kuaiqitong.com/1332phpXjgpka1633920746211011.png','https://image.kuaiqitong.com/9314phpcBNBir1633920781211011.png'];
+        $goods_carousel= ['https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png'];
         $goods_name = $params['goods_name'];
         $goods_lord_img = $params['goods_lord_img'];
 //        $goods_carousel = $params['goods_carousel'];//轮播图

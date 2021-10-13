@@ -15,7 +15,7 @@ class GoodsCategoryController extends Controller
     {
         $params = $request->all();
         $goods_category = $params['goods_category'];
-        $goods_category_img = $params['goods_category_img'];
+        $goods_category_img = $params['goods_category_img']??null;
         $created_at = date('Y-m-d H:i:s');
         $cate = GoodsCategoryModel::query()->where(['goods_category'=>$goods_category])->select('*')->get()->toArray();
         if($cate){
