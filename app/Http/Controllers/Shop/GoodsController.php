@@ -14,11 +14,10 @@ class GoodsController extends Controller
     public function goodsInsert(Request $request)
     {
         $params = $request->all();
-//        $goods_id = session_create_id();
-        $goods_carousel= ['https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png'];
+//        $goods_carousel= ['https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png'];
         $goods_name = $params['goods_name'];
         $goods_lord_img = $params['goods_lord_img'];
-//        $goods_carousel = $params['goods_carousel'];//轮播图
+        $goods_carousel = $params['goods_carousel'];//轮播图
         $goods_about = $params['goods_about'];
         $goods_details_img = $params['goods_details_img'];
         $goods_price = $params['goods_price'];
@@ -31,76 +30,28 @@ class GoodsController extends Controller
         }
         $goods = GoodsModel::query()->insert(['goods_name'=>$goods_name,'goods_lord_img'=>$goods_lord_img,'goods_about'=>$goods_about,'goods_details_img'=>$goods_details_img,'goods_price'=>$goods_price,'goods_cate'=>$goods_cate,'if_show'=>$if_show,'created_at'=>$created_at]);
         $goods_info = GoodsModel::query()->where(['goods_name'=>$goods_name])->select('goods_id')->first()->toArray();
-//        var_dump($goods_id);
-//        var_dump($goods_info['goods_id']);
         foreach ($goods_carousel as $key =>$v) {
-//            var_dump($v);
-//            var_dump($goods_info['goods_id']);
             $carousel = GoodsCarouselModel::query()->insert(['carousel_id' => $goods_info['goods_id'],'goods_img' => $v]);
         }
             if($carousel || $goods){
                 return ['code' => 0, 'msg' => '添加成功','data'=>[]];
             }
-//        $carousel = GoodsCarouselModel::query()->insert();
-//        return ['code' => 0, 'msg' => '成功','data'=>$data];
     }
-    //
-
-
-
-    //知名专家与三甲专家义诊首页展示
-    public function doctorShow(){
-        $field = ['id','doctor_name','doctor_img','doctor_sort','doctor_school'];
-        $fields = ['id','doctor_name','doctor_img','doctor_sort','doctor_school','sdo'];
-        //名医
-        $expertDoc = DoctorInfoModel::query()->where(['sort'=>1,'if_kab'=>1])->select($field)->get()->toArray();
-        //义诊
-        $msapDoc = DoctorInfoModel::query()->where(['sort'=>2,'if_kab'=>1])->select($fields)->get()->toArray();
-        $list = [
-            'expertDoc' => $expertDoc,
-            'msapDoc' => $msapDoc
-        ];
-        return ['code' => 0, 'msg' => '成功','data'=>$list];
-    }
-    //首页医生列表
-    public function fileList()
-    {
-        $field = ['d.id','section_id','doctor_name','doctor_img','doctor_message','doctor_sort','doctor_school',
-        'hospital','sdo','praise','evaluate','inquiry_cost','section'];
-        $list = DoctorInfoModel::query()->from('doctor_info as d')
-            ->join('doctor_section as s','s.id','=','d.section_id')
-            ->where('sort','!=',2)
-        ->select($field)->get()->toArray();
-        $id = array_column($list,'id','id');
-        $tag = DoctorTagModel::query()->whereIn('doctor_id',$id)->select('doctor_id','doctor_tag')->get()->toArray();
-        $res = array();
-        foreach($tag as $item) {
-            if(! isset($res[$item['doctor_id']])) $res[$item['doctor_id']] = $item;
-            else $res[$item['doctor_id']]['doctor_tag'] .= ',' . $item['doctor_tag'];
-        }
-        $arr = array_values($res);
-        $ass =(array_column($arr,'doctor_tag','doctor_id'));
-        foreach ($list as $k=>&$v){
-            $v['doctor_tag'] = explode(',',$ass[$v['id']]);
-        }
-        return ['code' => 0, 'msg' => '成功','data'=>$list];
-    }
-    //医生详情
-    public function doctorDetails(Request $request){
+    //商品详情
+    public function goodsDetails(Request $request){
         $params = $request->all();
-        $id = $params['id'];
-        $field = ['d.id','section_id','doctor_name','doctor_img','doctor_message','doctor_sort',
-            'hospital','sdo','work_years','doctor_vita','section','inquiry_cost'];
-        $list = DoctorInfoModel::query()->from('doctor_info as d')
-            ->join('doctor_section as s','s.id','=','d.section_id')
-            ->where('d.id',$id)
-            ->select($field)->get()->toArray();
-        $id = array_column($list,'id','id');
-        $num = UserEvaluateModel::query()->where('doctor_id',$id)->count('*');
-        $evaluate = UserEvaluateModel::query()->where('doctor_id',$id)->select('evaluate','datetime')->get()->toArray();
-        $list[0]['evaluate_num'] = $num;
-        $list[0]['patient_evaluate'] = $evaluate;
+        $goods_id = $params['goods_id'];
+        $field = ['goods_id','goods_name','goods_about','goods_details_img','goods_price'];
+        $list = GoodsModel::query()->where(['goods_id'=>$goods_id])->select($field)->first()->toArray();
+        $carousel = GoodsCarouselModel::query()->where(['carousel_id'=>$goods_id])->select('goods_img')->get()->toArray();
+        $list['carousel'] = array_column($carousel,'goods_img');
         return ['code' => 0, 'msg' => '成功','data'=>$list];
+    }
+    //全部商品
+    public function allGoods(){
+        $field = ['goods_id','goods_name','goods_lord_img','goods_price','goods_cate'];
+        $goods = GoodsModel::query()->whereNotIn('goods_cate',[4,5])->select($field)->get()->toArray();
+        return ['code' => 0, 'msg' => '成功','data'=>$goods];
     }
     //科室列表
     public function sectionList(){

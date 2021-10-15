@@ -36,6 +36,8 @@ Route::post('/goods/insert','Shop\GoodsController@goodsInsert');
 Route::get('/home/carouselimg','Shop\HomeGoodsController@homeCarouselImg');
 Route::get('/home/showimg','Shop\HomeGoodsController@homeShowImg');
 Route::get('/home/categoods','Shop\HomeGoodsController@homeCateGoods');
+Route::post('/goods/details','Shop\GoodsController@goodsDetails');
+Route::get('/goods/all','Shop\GoodsController@allGoods');
 //Wx
 Route::get('/wx/code','Wx\WxController@codeSession');
 
