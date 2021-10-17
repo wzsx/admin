@@ -14,10 +14,10 @@ class GoodsController extends Controller
     public function goodsInsert(Request $request)
     {
         $params = $request->all();
-//        $goods_carousel= ['https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png'];
+        $goods_carousel= ['https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png'];
         $goods_name = $params['goods_name'];
         $goods_lord_img = $params['goods_lord_img'];
-        $goods_carousel = $params['goods_carousel'];//轮播图
+//        $goods_carousel = $params['goods_carousel'];//轮播图
         $goods_about = $params['goods_about'];
         $goods_details_img = $params['goods_details_img'];
         $goods_price = $params['goods_price'];
@@ -44,8 +44,16 @@ class GoodsController extends Controller
         $field = ['goods_id','goods_name','goods_about','goods_details_img','goods_price'];
         $list = GoodsModel::query()->where(['goods_id'=>$goods_id])->select($field)->first()->toArray();
         $carousel = GoodsCarouselModel::query()->where(['carousel_id'=>$goods_id])->select('goods_img')->get()->toArray();
-        $list['carousel'] = array_column($carousel,'goods_img');
-        return ['code' => 0, 'msg' => '成功','data'=>$list];
+        $data = [
+            'goods_id'=>$list['goods_id'],
+            'goods_name'=>$list['goods_name'],
+            'goods_about'=>$list['goods_about'],
+            'goods_price'=>$list['goods_price'],
+        ];
+        $data['carousel'] = array_column($carousel,'goods_img');
+        $data['sort'] = ['goods_details_img'=>$list['goods_details_img'],'evaluate'=>['暂无评价']];
+
+        return ['code' => 0, 'msg' => '成功','data'=>$data];
     }
     //全部商品
     public function allGoods(){

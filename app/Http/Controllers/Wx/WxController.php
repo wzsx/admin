@@ -18,7 +18,7 @@ class WxController extends Controller
         $url=sprintf($this->wxUrl,$this->appId,$this->appSecret,$code);
 //        $url=sprintf(config('wechatUrl.url'),config('wechatUrl.appid'),config('wechatUrl.secret'),$code);
         $client=new Client(['timeout'=>5,'verify'=>false]);
-        $res=$client->post($url);
+        $res=$client->get($url);
         $data=(string)$res->getBody();
         $arr=json_decode($data,true);
         return ['code'=>200,'msg'=>'ok','data'=>['user_id'=>$arr['openid']]];
