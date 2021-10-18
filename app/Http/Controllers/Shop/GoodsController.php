@@ -51,7 +51,7 @@ class GoodsController extends Controller
             'goods_price'=>$list['goods_price'],
         ];
         $data['carousel'] = array_column($carousel,'goods_img');
-        $data['sort'] = [['goods_details'=>'商品详情','goods_details_img'=>[$list['goods_details_img']]],['reviews'=>'商品评价','evaluate'=>['暂无评价']]];
+        $data['sort'] = [['name'=>'商品详情','content'=>[$list['goods_details_img']]],['name'=>'商品评价','content'=>['暂无评价']]];
 
         return ['code' => 0, 'msg' => '成功','data'=>$data];
     }
