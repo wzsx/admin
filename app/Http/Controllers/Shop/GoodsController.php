@@ -41,12 +41,13 @@ class GoodsController extends Controller
     public function goodsDetails(Request $request){
         $params = $request->all();
         $goods_id = $params['goods_id'];
-        $field = ['goods_id','goods_name','goods_about','goods_details_img','goods_price'];
+        $field = ['goods_id','goods_name','goods_lord_img','goods_about','goods_details_img','goods_price'];
         $list = GoodsModel::query()->where(['goods_id'=>$goods_id])->select($field)->first()->toArray();
         $carousel = GoodsCarouselModel::query()->where(['carousel_id'=>$goods_id])->select('goods_img')->get()->toArray();
         $data = [
             'goods_id'=>$list['goods_id'],
             'goods_name'=>$list['goods_name'],
+            'goods_lord_img'=>$list['goods_lord_img'],
             'goods_about'=>$list['goods_about'],
             'goods_price'=>$list['goods_price'],
         ];
