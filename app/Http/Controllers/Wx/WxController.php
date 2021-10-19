@@ -153,7 +153,7 @@ class WxController extends Controller
         $res=$client->get($url);
         $arr=(string)$res->getBody();
         $arr=json_decode($arr,true);
-        var_dump($arr);
+//        var_dump($arr);
         if(empty($arr)||empty($arr['openid'])||empty($arr['session_key'])){
             return ['code' => 200001, 'msg' => 'code已过期或不正确'];
         }
