@@ -17,9 +17,9 @@ class WxController extends Controller
     //获取用户登录信息
     public function codeSession(Request $request)
     {
-        if(empty($request->input->post('code')) || empty($request->input->post('signature')) || empty($request->input->post('rawData')) || empty($request->input->post('encryptedData')) || empty($request->input->post('iv'))){
-            return ['code'=>0,'msg'=>'缺少必要参数'];
-        }
+//        if(empty($request->input->post('code')) || empty($request->input->post('signature')) || empty($request->input->post('rawData')) || empty($request->input->post('encryptedData')) || empty($request->input->post('iv'))){
+//            return ['code'=>0,'msg'=>'缺少必要参数'];
+//        }
         $code = $request->input('code');
         $url=sprintf($this->wxUrl,$this->appId,$this->appSecret,$code);
 //        $url=sprintf(config('wechatUrl.url'),config('wechatUrl.appid'),config('wechatUrl.secret'),$code);
@@ -27,35 +27,36 @@ class WxController extends Controller
         $res=$client->get($url);
         $arr=(string)$res->getBody();
         $arr=json_decode($arr,true);
-        if(empty($arr)||empty($arr['openid'])||empty($arr['session_key'])){
-            return ['code' => 200001, 'msg' => 'code已过期或不正确'];
-        }
-        $openid = $arr['openid'];
-        $session_key = $arr['session_key'];
-        // 数据签名校验
-        $signature = $request->input('signature');
-        $rawData = Request::instance()->post('rawData');
-        $signature2 = sha1($rawData . $session_key);
-        if ($signature != $signature2) {
-            return ['code' => 500, 'msg' => '数据签名验证失败！'];
-        }
-//        Vendor("PHP.wxBizDataCrypt"); //加载解密文件，在官方有下载
-        $encryptedData = $request->input('encryptedData');
-        $iv = $request->input('iv');
-        $pc = new \WXBizDataCrypt($this->appId, $session_key);
-        $errCode = $pc->decryptData($encryptedData, $iv, $data); //其中$data包含用户的所有数据
-        $data = json_decode($data,true);
-        if ($errCode == 0) {
-            $this->car_owner_model->api_save($data);
-            $time = 2*60*60;
-            $data['sid'] = md5($session_key);
-            $key = 'ses_'.$data['sid'];
-            $user_json = json_encode($data);
-            $this->cache->redis->save($key,$user_json,$time);
-            return ['code'=>200,'msg'=>'ok','data'=>$data];
-        } else {
-            return ['code' => 0, 'msg' => $errCode];
-        }
+        return ['code'=>200,'msg'=>'ok','data'=>$arr];
+//        if(empty($arr)||empty($arr['openid'])||empty($arr['session_key'])){
+//            return ['code' => 200001, 'msg' => 'code已过期或不正确'];
+//        }
+//        $openid = $arr['openid'];
+//        $session_key = $arr['session_key'];
+//        // 数据签名校验
+//        $signature = $request->input('signature');
+//        $rawData = Request::instance()->post('rawData');
+//        $signature2 = sha1($rawData . $session_key);
+//        if ($signature != $signature2) {
+//            return ['code' => 500, 'msg' => '数据签名验证失败！'];
+//        }
+////        Vendor("PHP.wxBizDataCrypt"); //加载解密文件，在官方有下载
+//        $encryptedData = $request->input('encryptedData');
+//        $iv = $request->input('iv');
+//        $pc = new \WXBizDataCrypt($this->appId, $session_key);
+//        $errCode = $pc->decryptData($encryptedData, $iv, $data); //其中$data包含用户的所有数据
+//        $data = json_decode($data,true);
+//        if ($errCode == 0) {
+//            $this->car_owner_model->api_save($data);
+//            $time = 2*60*60;
+//            $data['sid'] = md5($session_key);
+//            $key = 'ses_'.$data['sid'];
+//            $user_json = json_encode($data);
+//            $this->cache->redis->save($key,$user_json,$time);
+//            return ['code'=>200,'msg'=>'ok','data'=>$data];
+//        } else {
+//            return ['code' => 0, 'msg' => $errCode];
+//        }
     }
 
     //获取用户登录信息
