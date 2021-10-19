@@ -165,7 +165,7 @@ class WxController extends Controller
 //        $rawData = Request::instance()->post('rawData');
         $signature2 = sha1($rawData . $session_key);
         if ($signature != $signature2) {
-            return ['code' => 500, 'msg' => '数据签名验证失败！'];
+            return ['code' => 500, 'msg' => '数据签名验证失败！','signature'=>$signature,'signatures'=>$signature2];
         }
         $encryptedData = $request->input('encryptedData');
         $iv = $request->input('iv');
