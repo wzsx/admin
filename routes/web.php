@@ -39,7 +39,7 @@ Route::get('/home/categoods','Shop\HomeGoodsController@homeCateGoods');
 Route::post('/goods/details','Shop\GoodsController@goodsDetails');
 Route::get('/goods/all','Shop\GoodsController@allGoods');
 //Wx
-Route::post('/wx/code','Wx\WxController@codeSession');
+Route::get('/wx/code','Wx\WxController@codeSession');
 
 Route::get('/wx/session','Wx\WxController@Session');
 Route::get('/wx/sa','Wx\WxController@aaad');
