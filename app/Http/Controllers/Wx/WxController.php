@@ -179,6 +179,7 @@ class WxController extends Controller
 
         $data['session3rd'] = $session3rd;
         cache($session3rd, $data['openId'] . $session_key);
+        var_dump($data);
         return ['code'=>200,'msg'=>'ok','data'=>$data];
     }
 
