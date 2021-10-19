@@ -153,7 +153,6 @@ class WxController extends Controller
         $res=$client->get($url);
         $arr=(string)$res->getBody();
         $arr=json_decode($arr,true);
-//        var_dump($arr);
         if(empty($arr)||empty($arr['openid'])||empty($arr['session_key'])){
             return ['code' => 200001, 'msg' => 'code已过期或不正确'];
         }
@@ -162,25 +161,23 @@ class WxController extends Controller
         // 数据签名校验
         $signature = $request->input('signature');
         $rawData = $request->input('rawData');
-//        $rawData = Request::instance()->post('rawData');
         $signature2 = sha1($rawData . $session_key);
         if ($signature != $signature2) {
-            return ['code' => 500, 'msg' => '数据签名验证失败！','signature'=>$signature,'signatures'=>$signature2];
+            return ['code' => 500, 'msg' => '数据签名验证失败'];
         }
-        $encryptedData = $request->input('encryptedData');
-        $iv = $request->input('iv');
-        $pc = new \WXBizDataCrypt($this->appId, $session_key);
-        $errCode = $pc->decryptData($encryptedData, $iv, $data );
-        if ($errCode !== 0) {
-            return ['code' => 0, 'msg' => $errCode];
-        }
-        $data = json_decode($data, true);
-        $session3rd = self::randomFromDev(16);
-
-        $data['session3rd'] = $session3rd;
-        cache($session3rd, $data['openId'] . $session_key);
-//        var_dump($data);
-        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
+        return ['code'=>200,'msg'=>'签名验证成功'];
+//        $encryptedData = $request->input('encryptedData');
+//        $iv = $request->input('iv');
+//        $pc = new \WXBizDataCrypt($this->appId, $session_key);
+//        $errCode = $pc->decryptData($encryptedData, $iv, $data );
+//        if ($errCode !== 0) {
+//            return ['code' => 0, 'msg' => $errCode];
+//        }
+//        $data = json_decode($data, true);
+//        $session3rd = self::randomFromDev(16);
+//        $data['session3rd'] = $session3rd;
+//        cache($session3rd, $data['openId'] . $session_key);
+//        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
     }
 
     /**
