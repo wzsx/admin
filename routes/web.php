@@ -43,3 +43,4 @@ Route::get('/wx/code','Wx\WxController@codeSession');
 
 Route::get('/wx/session','Wx\WxController@Session');
 Route::get('/wx/sa','Wx\WxController@weappLogin');
+Route::get('/wx/wxlogin','Wx\WxController@wxLogin');
