@@ -153,6 +153,7 @@ class WxController extends Controller
         $res=$client->get($url);
         $arr=(string)$res->getBody();
         $arr=json_decode($arr,true);
+        var_dump($arr);
         if(empty($arr)||empty($arr['openid'])||empty($arr['session_key'])){
             return ['code' => 200001, 'msg' => 'code已过期或不正确'];
         }
@@ -160,8 +161,8 @@ class WxController extends Controller
         $session_key = $arr['session_key'];
         // 数据签名校验
         $signature = $request->input('signature');
-//        $rawData = $request->input('rawData');
-        $rawData = Request::instance()->post('rawData');
+        $rawData = $request->input('rawData');
+//        $rawData = Request::instance()->post('rawData');
         $signature2 = sha1($rawData . $session_key);
         if ($signature != $signature2) {
             return ['code' => 500, 'msg' => '数据签名验证失败！'];
