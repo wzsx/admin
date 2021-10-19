@@ -21,7 +21,7 @@ class WxController extends Controller
 //            return ['code'=>0,'msg'=>'缺少必要参数'];
 //        }
         $code = $request->input('code');
-//        var_dump($code);
+        var_dump($code);
         $url=sprintf($this->wxUrl,$this->appId,$this->appSecret,$code);
 //        $url=sprintf(config('wechatUrl.url'),config('wechatUrl.appid'),config('wechatUrl.secret'),$code);
         $client=new Client(['timeout'=>5,'verify'=>false]);
