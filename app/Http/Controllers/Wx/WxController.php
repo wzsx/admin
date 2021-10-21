@@ -177,36 +177,36 @@ class WxController extends Controller
         $data = json_decode($data, true);
         $session3rd = self::randomFromDev(16);
 //        $data['session3rd'] = $session3rd;
-        cache($session3rd, $openid. $session_key);
-//        $ars = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->get()->toArray();
-//        if($ars){
-//            $update_at = date('Y-m-d H:i:s');
-//             $update = ShopUserModel::query()->where(['openid'=>$openid])->update(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'update_at'=>$update_at]);
-//            if($update){
-//                $cate = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->get()->toArray();
-//                $userres=[
-//                    'mid'=>$cate['mid'],
-//                    'nickname'=>$cate['nickname'],
-//                    'face_url'=>$cate['face_url'],
-//                    'token'=>$cate['token']
-//                ];
-//                return ['code'=>200,'msg'=>'ok','data'=>$userres];
-//            }
-//        }
-//        $created_at = date('Y-m-d H:i:s');
-//        $info = ShopUserModel::query()->insert(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'created_at'=>$created_at]);
-//        if($info){
-//            $cate = ShopUserModel::query()->where(['nickname'=>$data['nickName']])->select('*')->get()->toArray();
-//            $userres=[
-//                'mid'=>$cate['mid'],
-//                'nickname'=>$cate['nickname'],
-//                'face_url'=>$cate['face_url'],
-//                'token'=>$cate['token']
-//            ];
-//            return ['code'=>200,'msg'=>'ok','data'=>$userres];
-//        }
+//        cache($session3rd, $openid. $session_key);
+        $ars = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->get()->toArray();
+        if($ars){
+            $update_at = date('Y-m-d H:i:s');
+             $update = ShopUserModel::query()->where(['openid'=>$openid])->update(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'update_at'=>$update_at]);
+            if($update){
+                $cate = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->get()->toArray();
+                $user_res=[
+                    'mid'=>$cate['mid'],
+                    'nickname'=>$cate['nickname'],
+                    'face_url'=>$cate['face_url'],
+                    'token'=>$cate['token']
+                ];
+                return ['code'=>200,'msg'=>'ok','data'=>$user_res];
+            }
+        }
+        $created_at = date('Y-m-d H:i:s');
+        $info = ShopUserModel::query()->insert(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'created_at'=>$created_at]);
+        if($info){
+            $cate = ShopUserModel::query()->where(['nickname'=>$data['nickName']])->select('*')->get()->toArray();
+            $user_res=[
+                'mid'=>$cate['mid'],
+                'nickname'=>$cate['nickname'],
+                'face_url'=>$cate['face_url'],
+                'token'=>$cate['token']
+            ];
+            return ['code'=>200,'msg'=>'ok','data'=>$user_res];
+        }
 
-        return ['code'=>200,'msg'=>'ok','data'=>$data];
+//        return ['code'=>200,'msg'=>'ok','data'=>$data];
     }
 
     /**
