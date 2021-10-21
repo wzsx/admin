@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Http\Controllers;
 /**
  * error code 说明.
  * <ul>

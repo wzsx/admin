@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Http\Controllers;
 /**
  * 对微信小程序用户加密数据的解密示例代码.
  *
@@ -42,7 +42,7 @@ class WXBizDataCrypt
 		}
 		$aesKey=base64_decode($this->sessionKey);
 
-        
+
 		if (strlen($iv) != 24) {
 			return ErrorCode::$IllegalIv;
 		}

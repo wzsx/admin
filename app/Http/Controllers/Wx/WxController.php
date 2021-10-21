@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Http\Controllers\wxBizDataCrypt;
 use GuzzleHttp\Client;
 
 class WxController extends Controller
@@ -169,17 +170,17 @@ class WxController extends Controller
 //        return ['code'=>200,'msg'=>'签名验证成功'];
         $encryptedData = $request->input('encryptedData');
         $iv = $request->input('iv');
-        $pc = new \WXBizDataCrypt($this->appId, $session_key);
+        $pc = new WXBizDataCrypt($this->appId, $session_key);
         $errCode = $pc->decryptData($encryptedData, $iv, $data );
-        return ['code'=>200,'msg'=>'ok','signature'=>$signature,'signatures'=>$signature2,'encryptedData'=>$encryptedData,'iv'=>$iv,'pc'=>$pc,'errCode'=>$errCode];
-//        if ($errCode !== 0) {
-//            return ['code' => 0, 'msg' => $errCode];
-//        }
-//        $data = json_decode($data, true);
-//        $session3rd = self::randomFromDev(16);
-//        $data['session3rd'] = $session3rd;
-//        cache($session3rd, $data['openId'] . $session_key);
-//        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
+//        return ['code'=>200,'msg'=>'ok','signature'=>$signature,'signatures'=>$signature2,'encryptedData'=>$encryptedData,'iv'=>$iv,'pc'=>$pc,'errCode'=>$errCode];
+        if ($errCode !== 0) {
+            return ['code' => 0, 'msg' => $errCode];
+        }
+        $data = json_decode($data, true);
+        $session3rd = self::randomFromDev(16);
+        $data['session3rd'] = $session3rd;
+        cache($session3rd, $data['openId'] . $session_key);
+        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
     }
 
     /**
@@ -209,5 +210,26 @@ class WxController extends Controller
         $rawData = $request->input('rawData');
         $data = json_decode($rawData, true);
         var_dump($data);
+    }
+
+
+    public function bbb(Request $request){
+//        $code = $request->input('code');
+//        $url=sprintf($this->wxUrl,$this->appId,$this->appSecret,$code);
+//        $client=new Client(['timeout'=>5,'verify'=>false]);
+//        $res=$client->get($url);
+//        $arr=(string)$res->getBody();
+//        $arr=json_decode($arr,true);
+//        if(empty($arr)||empty($arr['openid'])||empty($arr['session_key'])){
+//            return ['code' => 200001, 'msg' => 'code已过期或不正确'];
+//        }
+//        var_dump($arr);
+//        $openid = $arr['openid'];
+//        $session_key = $arr['session_key'];
+        $session_key = 'XlkGNsZpvDKzIXK1Y7qo+Q==';
+        $pc = new WXBizDataCrypt($this->appId, $session_key);
+        var_dump($pc);
+//        $errCode = $pc->decryptData($encryptedData, $iv, $data );
+
     }
 }
