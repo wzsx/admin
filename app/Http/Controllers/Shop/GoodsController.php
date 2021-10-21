@@ -20,6 +20,7 @@ class GoodsController extends Controller
 //        $goods_carousel = $params['goods_carousel'];//轮播图
         $goods_about = $params['goods_about'];
         $goods_details_img = $params['goods_details_img'];
+        $goods_size = $params['goods_size'];
         $goods_price = $params['goods_price'];
         $goods_cate = $params['goods_cate'];
         $if_show = $params['if_show'];
@@ -28,7 +29,7 @@ class GoodsController extends Controller
         if($info){
             return ['code' => 200001, 'msg' => '添加失败,该商品已存在'];
         }
-        $goods = GoodsModel::query()->insert(['goods_name'=>$goods_name,'goods_lord_img'=>$goods_lord_img,'goods_about'=>$goods_about,'goods_details_img'=>$goods_details_img,'goods_price'=>$goods_price,'goods_cate'=>$goods_cate,'if_show'=>$if_show,'created_at'=>$created_at]);
+        $goods = GoodsModel::query()->insert(['goods_name'=>$goods_name,'goods_lord_img'=>$goods_lord_img,'goods_about'=>$goods_about,'goods_details_img'=>$goods_details_img,'goods_size'=>$goods_size,'goods_price'=>$goods_price,'goods_cate'=>$goods_cate,'if_show'=>$if_show,'created_at'=>$created_at]);
         $goods_info = GoodsModel::query()->where(['goods_name'=>$goods_name])->select('goods_id')->first()->toArray();
         foreach ($goods_carousel as $key =>$v) {
             $carousel = GoodsCarouselModel::query()->insert(['carousel_id' => $goods_info['goods_id'],'goods_img' => $v]);
@@ -41,7 +42,7 @@ class GoodsController extends Controller
     public function goodsDetails(Request $request){
         $params = $request->all();
         $goods_id = $params['goods_id'];
-        $field = ['goods_id','goods_name','goods_lord_img','goods_about','goods_details_img','goods_price'];
+        $field = ['goods_id','goods_name','goods_lord_img','goods_about','goods_details_img','goods_size','goods_price'];
         $list = GoodsModel::query()->where(['goods_id'=>$goods_id])->select($field)->first()->toArray();
         $carousel = GoodsCarouselModel::query()->where(['carousel_id'=>$goods_id])->select('goods_img')->get()->toArray();
         $data = [
@@ -49,6 +50,7 @@ class GoodsController extends Controller
             'goods_name'=>$list['goods_name'],
             'goods_lord_img'=>$list['goods_lord_img'],
             'goods_about'=>$list['goods_about'],
+            'goods_size'=>$list['goods_size'],
             'goods_price'=>$list['goods_price'],
         ];
         $data['carousel'] = array_column($carousel,'goods_img');
