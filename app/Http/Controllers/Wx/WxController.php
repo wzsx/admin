@@ -180,7 +180,7 @@ class WxController extends Controller
 //        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
         $session3rd = self::randomFromDev(16);
         $data['session3rd'] = $session3rd;
-        cache($session3rd, $data['openId'] . $session_key);
+        cache($session3rd, $openid. $session_key);
         return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
     }
 
