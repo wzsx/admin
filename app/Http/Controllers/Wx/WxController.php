@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Wx;
 
 use App\Http\Controllers\Controller;
+use App\Model\ShopUserModel;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Support\Facades\Storage;
@@ -166,22 +167,46 @@ class WxController extends Controller
         if ($signature != $signature2) {
             return ['code' => 500, 'msg' => '数据签名验证失败','signature'=>$signature,'signatures'=>$signature2];
         }
-//        return ['code' => 200, 'msg' => '数据签名验证成功','signature'=>$signature,'signatures'=>$signature2];
-//        return ['code'=>200,'msg'=>'签名验证成功'];
         $encryptedData = $request->input('encryptedData');
         $iv = $request->input('iv');
         $pc = new WXBizDataCrypt($this->appId, $session_key);
         $errCode = $pc->decryptData($encryptedData, $iv, $data );
-//        return ['code'=>200,'msg'=>'ok','signature'=>$signature,'signatures'=>$signature2,'encryptedData'=>$encryptedData,'iv'=>$iv,'pc'=>$pc,'errCode'=>$errCode];
         if ($errCode !== 0) {
             return ['code' => 0, 'msg' => $errCode];
         }
         $data = json_decode($data, true);
-//        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
         $session3rd = self::randomFromDev(16);
-        $data['session3rd'] = $session3rd;
+//        $data['session3rd'] = $session3rd;
         cache($session3rd, $openid. $session_key);
-        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
+        $ars = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->get()->toArray();
+        if($ars){
+            $update_at = date('Y-m-d H:i:s');
+             $update = ShopUserModel::query()->where(['openid'=>$openid])->update(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'update_at'=>$update_at]);
+            if($update){
+                $cate = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->get()->toArray();
+                $userres=[
+                    'mid'=>$cate['mid'],
+                    'nickname'=>$cate['nickname'],
+                    'face_url'=>$cate['face_url'],
+                    'token'=>$cate['token']
+                ];
+                return ['code'=>200,'msg'=>'ok','data'=>$userres];
+            }
+        }
+        $created_at = date('Y-m-d H:i:s');
+        $info = ShopUserModel::query()->insert(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'created_at'=>$created_at]);
+        if($info){
+            $cate = ShopUserModel::query()->where(['nickname'=>$data['nickName']])->select('*')->get()->toArray();
+            $userres=[
+                'mid'=>$cate['mid'],
+                'nickname'=>$cate['nickname'],
+                'face_url'=>$cate['face_url'],
+                'token'=>$cate['token']
+            ];
+            return ['code'=>200,'msg'=>'ok','data'=>$userres];
+        }
+
+//        return ['code'=>200,'msg'=>'ok','data'=>$data];
     }
 
     /**
