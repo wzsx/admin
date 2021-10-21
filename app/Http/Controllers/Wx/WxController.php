@@ -169,16 +169,17 @@ class WxController extends Controller
 //        return ['code'=>200,'msg'=>'签名验证成功'];
         $encryptedData = $request->input('encryptedData');
         $iv = $request->input('iv');
-        $pc = new \WXBizDataCrypt($this->appId, $session_key);
-        $errCode = $pc->decryptData($encryptedData, $iv, $data );
-        if ($errCode !== 0) {
-            return ['code' => 0, 'msg' => $errCode];
-        }
-        $data = json_decode($data, true);
-        $session3rd = self::randomFromDev(16);
-        $data['session3rd'] = $session3rd;
-        cache($session3rd, $data['openId'] . $session_key);
-        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
+        return ['code'=>200,'msg'=>'ok','signature'=>$signature,'signatures'=>$signature2,'encryptedData'=>$encryptedData,'iv'=>$iv];
+//        $pc = new \WXBizDataCrypt($this->appId, $session_key);
+//        $errCode = $pc->decryptData($encryptedData, $iv, $data );
+//        if ($errCode !== 0) {
+//            return ['code' => 0, 'msg' => $errCode];
+//        }
+//        $data = json_decode($data, true);
+//        $session3rd = self::randomFromDev(16);
+//        $data['session3rd'] = $session3rd;
+//        cache($session3rd, $data['openId'] . $session_key);
+//        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
     }
 
     /**
