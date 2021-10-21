@@ -163,7 +163,7 @@ class WxController extends Controller
         $rawData = $request->input('rawData');
         $signature2 = sha1($rawData . $session_key);
         if ($signature != $signature2) {
-            return ['code' => 500, 'msg' => '数据签名验证失败'];
+            return ['code' => 500, 'msg' => '数据签名验证失败','signature'=>$signature,'signatures'=>$signature2];
         }
 //        return ['code'=>200,'msg'=>'签名验证成功'];
         $encryptedData = $request->input('encryptedData');
