@@ -183,7 +183,7 @@ class WxController extends Controller
             $update_at = date('Y-m-d H:i:s');
              $update = ShopUserModel::query()->where(['openid'=>$openid])->update(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'update_at'=>$update_at]);
             if($update){
-                $cate = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->get()->toArray();
+                $cate = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->first()->toArray();
                 $user_res=[
                     'mid'=>$cate['mid'],
                     'nickname'=>$cate['nickname'],
@@ -196,14 +196,15 @@ class WxController extends Controller
         $created_at = date('Y-m-d H:i:s');
         $info = ShopUserModel::query()->insert(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'created_at'=>$created_at]);
         if($info){
-            $cate = ShopUserModel::query()->where(['nickname'=>$data['nickName']])->select('*')->get()->toArray();
-            $user_res=[
-                'mid'=>$cate['mid'],
-                'nickname'=>$cate['nickname'],
-                'face_url'=>$cate['face_url'],
-                'token'=>$cate['token']
-            ];
-            return ['code'=>200,'msg'=>'ok','data'=>$user_res];
+            $cate = ShopUserModel::query()->where(['nickname'=>$data['nickName']])->select('*')->first()->toArray();
+//            $user_res=[
+//                'mid'=>$cate['mid'],
+//                'nickname'=>$cate['nickname'],
+//                'face_url'=>$cate['face_url'],
+//                'token'=>$cate['token']
+//            ];
+//            return ['code'=>200,'msg'=>'ok','data'=>$user_res];
+            return ['code'=>200,'msg'=>'ok','data'=>$cate];
         }
 
 //        return ['code'=>200,'msg'=>'ok','data'=>$data];
