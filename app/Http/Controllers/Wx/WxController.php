@@ -165,20 +165,21 @@ class WxController extends Controller
         if ($signature != $signature2) {
             return ['code' => 500, 'msg' => '数据签名验证失败','signature'=>$signature,'signatures'=>$signature2];
         }
+        return ['code' => 200, 'msg' => '数据签名验证成功','signature'=>$signature,'signatures'=>$signature2];
 //        return ['code'=>200,'msg'=>'签名验证成功'];
-        $encryptedData = $request->input('encryptedData');
-        $iv = $request->input('iv');
-        $pc = new \WXBizDataCrypt($this->appId, $session_key);
-        $errCode = $pc->decryptData($encryptedData, $iv, $data );
-        if ($errCode !== 0) {
-            return ['code' => 0, 'msg' => $errCode];
-        }
-        $data = json_decode($data, true);
-        $session3rd = self::randomFromDev(16);
-        $data['session3rd'] = $session3rd;
-        cache($session3rd, $data['openId'] . $session_key);
-        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
-    }
+//        $encryptedData = $request->input('encryptedData');
+//        $iv = $request->input('iv');
+//        $pc = new \WXBizDataCrypt($this->appId, $session_key);
+//        $errCode = $pc->decryptData($encryptedData, $iv, $data );
+//        if ($errCode !== 0) {
+//            return ['code' => 0, 'msg' => $errCode];
+//        }
+//        $data = json_decode($data, true);
+//        $session3rd = self::randomFromDev(16);
+//        $data['session3rd'] = $session3rd;
+//        cache($session3rd, $data['openId'] . $session_key);
+//        return ['code'=>200,'msg'=>'ok','data'=>$data,'signature'=>$signature,'signatures'=>$signature2,'errcode'=>$errCode];
+//    }
 
     /**
      * 读取/dev/urandom获取随机数
@@ -200,5 +201,12 @@ class WxController extends Controller
         $result = strtr($result, '+/', '-_');
 
         return substr($result, 0, $len);
+    }
+
+
+    public function aaa(Request $request){
+        $rawData = $request->input('rawData');
+        $data = json_decode($rawData, true);
+        var_dump($data);
     }
 }
