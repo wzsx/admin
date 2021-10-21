@@ -206,7 +206,7 @@ class WxController extends Controller
 //            return ['code'=>200,'msg'=>'ok','data'=>$userres];
 //        }
 
-//        return ['code'=>200,'msg'=>'ok','data'=>$data];
+        return ['code'=>200,'msg'=>'ok','data'=>$data];
     }
 
     /**
