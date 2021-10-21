@@ -169,9 +169,9 @@ class WxController extends Controller
 //        return ['code'=>200,'msg'=>'签名验证成功'];
         $encryptedData = $request->input('encryptedData');
         $iv = $request->input('iv');
-        return ['code'=>200,'msg'=>'ok','signature'=>$signature,'signatures'=>$signature2,'encryptedData'=>$encryptedData,'iv'=>$iv];
-//        $pc = new \WXBizDataCrypt($this->appId, $session_key);
-//        $errCode = $pc->decryptData($encryptedData, $iv, $data );
+        $pc = new \WXBizDataCrypt($this->appId, $session_key);
+        $errCode = $pc->decryptData($encryptedData, $iv, $data );
+        return ['code'=>200,'msg'=>'ok','signature'=>$signature,'signatures'=>$signature2,'encryptedData'=>$encryptedData,'iv'=>$iv,'pc'=>$pc,'errCode'=>$errCode];
 //        if ($errCode !== 0) {
 //            return ['code' => 0, 'msg' => $errCode];
 //        }
