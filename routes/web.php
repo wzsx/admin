@@ -38,6 +38,10 @@ Route::get('/home/showimg','Shop\HomeGoodsController@homeShowImg');
 Route::get('/home/categoods','Shop\HomeGoodsController@homeCateGoods');
 Route::post('/goods/details','Shop\GoodsController@goodsDetails');
 Route::get('/goods/all','Shop\GoodsController@allGoods');
+//购物车
+Route::post('/cart/add','Cart\CartController@addCart');
+Route::post('/cart/update','Cart\CartController@updateCart');
+Route::post('/cart/list','Cart\CartController@cartList');
 //Wx
 Route::get('/wx/code','Wx\WxController@codeSession');
 
