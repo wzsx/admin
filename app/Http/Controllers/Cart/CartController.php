@@ -47,8 +47,15 @@ class CartController extends Controller
         $goods_id = $params['goods_id'];
         $goods_num = $params['goods_num'];
         $is_selected = $params['is_selected'];
-        if (!$goods_id || !$mid || !$goods_num || !$is_selected) {
+        if (!$goods_id || !$mid || !$is_selected) {
             return ['code' => 500001, 'msg' => '缺少必要参数'];
+        }
+        if($goods_num==0){
+            $delete =  CartModel::query()->where(['mid'=>$mid,'goods_id'=>$goods_id])->delete();
+            if($delete){
+                return ['code' => 0, 'msg' => '删除成功','data'=>[]];
+            }
+            return ['code' => 300001, 'msg' => '删除失败'];
         }
             $update_at = date('Y-m-d H:i:s');
             $update = CartModel::query()->where(['mid'=>$mid,'goods_id'=>$goods_id])->update(['goods_num'=>$goods_num,'update_at'=>$update_at,'is_selected'=>$is_selected]);
@@ -77,18 +84,12 @@ class CartController extends Controller
                 unset($goods[$k]);
                 continue;
             }
-            $v['valid'] = [
-                $v['goods_name']=$goodsRes[$v['goods_id']]['goods_name'],
-            $v['goods_lord_img']=$goodsRes[$v['goods_id']]['goods_lord_img'],
-            $v['goods_price']=$goodsRes[$v['goods_id']]['goods_price'],
-            $v['goods_size']=$goodsRes[$v['goods_id']]['goods_size']
-            ];
-//            $v['goods_name']=$goodsRes[$v['goods_id']]['goods_name'];
-//            $v['goods_lord_img']=$goodsRes[$v['goods_id']]['goods_lord_img'];
-//            $v['goods_price']=$goodsRes[$v['goods_id']]['goods_price'];
-//            $v['goods_size']=$goodsRes[$v['goods_id']]['goods_size'];
+            $v['goods_name']=$goodsRes[$v['goods_id']]['goods_name'];
+            $v['goods_lord_img']=$goodsRes[$v['goods_id']]['goods_lord_img'];
+            $v['goods_price']=$goodsRes[$v['goods_id']]['goods_price'];
+            $v['goods_size']=$goodsRes[$v['goods_id']]['goods_size'];
         }
-        return $goods;
+        return ['code' => 0, 'msg' => '成功','data'=>['valid'=>$goods,'failure'=>[]]];
 
 
     }
