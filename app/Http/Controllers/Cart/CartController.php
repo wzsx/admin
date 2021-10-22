@@ -103,7 +103,18 @@ class CartController extends Controller
         }
         return ['code' => 0, 'msg' => '成功','data'=>['valid'=>array_values($goods),'failure'=>array_values($goods_on)]];
 
+    }
 
+    //购物车全选反全选
+    public function goodsChecked(Request $request){
+        $params = $request->all();
+        $mid = $params['mid'];
+        $is_selected = $params['is_selected'];
+        if (!$mid) {
+            return ['code' => 500001, 'msg' => '缺少必要参数'];
+        }
+         CartModel::query()->where(['mid'=>$mid])->update(['is_selected'=>$is_selected]);
+        return ['code' => 0, 'msg' => '操作成功','data'=>[]];
     }
 }
 ?>

@@ -42,6 +42,7 @@ Route::get('/goods/all','Shop\GoodsController@allGoods');
 Route::post('/cart/add','Cart\CartController@addCart');
 Route::post('/cart/update','Cart\CartController@updateCart');
 Route::post('/cart/list','Cart\CartController@cartList');
+Route::post('/cart/checked','Cart\CartController@goodsChecked');
 //Wx
 Route::get('/wx/code','Wx\WxController@codeSession');
 
