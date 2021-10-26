@@ -206,7 +206,6 @@ class WxController extends Controller
             return ['code'=>200,'msg'=>'ok','data'=>$user_res];
         }
 
-//        return ['code'=>200,'msg'=>'ok','data'=>$data];
     }
 
     /**
@@ -231,39 +230,4 @@ class WxController extends Controller
         return substr($result, 0, $len);
     }
 
-
-    public function aaa(Request $request){
-        $rawData = $request->input('rawData');
-        $data = json_decode($rawData, true);
-        var_dump($data);
-    }
-
-
-    public function bbb(Request $request){
-//        $code = $request->input('code');
-//        $url=sprintf($this->wxUrl,$this->appId,$this->appSecret,$code);
-//        $client=new Client(['timeout'=>5,'verify'=>false]);
-//        $res=$client->get($url);
-//        $arr=(string)$res->getBody();
-//        $arr=json_decode($arr,true);
-//        if(empty($arr)||empty($arr['openid'])||empty($arr['session_key'])){
-//            return ['code' => 200001, 'msg' => 'code已过期或不正确'];
-//        }
-//        var_dump($arr);
-//        $openid = $arr['openid'];
-//        $session_key = $arr['session_key'];
-//        $session_key = 'bkRjPVqk7JLMU6pJd4OMsw==';
-//        $pc = new WXBizDataCrypt($this->appId, $session_key);
-////        var_dump($pc);
-//        $errCode = $pc->decryptData('52Hg4K3barwmET22gQCSCltW5oO/7Th7AflMSLmtRK+1IHni5ZIIuMimVrKTh5WIXFG9BnQMM4bWoO2atsdO4X7H8/PtQoLGF0dhSToVts/G0FmMlN5yiiPwdX2AgjlwpvEYF7lQO/LJ3Eu7R1A9qOq4SgEWD+H/okJw1qtsTq7rvxkrrIh2S28oQJu4ZqPi0cUyWX5Fn8PSCh7fBXvQTiGeyi/JyhdmIUUuhGF/snotetMjKi5RXOf63LTL448fxGR/BXiVghkWcPX6ohEppsqdGFqKJ7L0lA8WlJv/cAmHLvTmOO5xrkI5YS7bHzk1dCyBqeuW0Wf96PoiQn+n7CD0h71zizBWejrDsnT4qJQ5qE18BCLJCLuXBy0/5EPjWljC3brY5L9lKAoiKdIbMmODJCIpWvioZFVrV6lExdR2UmtUcz70bIfx0DP7BrIC', 'mWrXk76ZwaOe0mIqbwlcAw==', $data );
-////        return ['code'=>200,'msg'=>'ok','signature'=>$signature,'signatures'=>$signature2,'encryptedData'=>$encryptedData,'iv'=>$iv,'pc'=>$pc,'errCode'=>$errCode];
-//        if ($errCode !== 0) {
-//            return ['code' => 0, 'msg' => $errCode];
-//        }
-                $session3rd = self::randomFromDev(16);
-        cache($session3rd, 1111 . 'bkRjPVqk7JLMU6pJd4OMsw==');
-        return['code'=>200,'msg'=>'ok','data'=>$session3rd];
-//        $errCode = $pc->decryptData($encryptedData, $iv, $data );
-
-    }
 }

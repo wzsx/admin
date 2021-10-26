@@ -46,9 +46,9 @@ class WXBizDataCrypt
 		if (strlen($iv) != 24) {
 			return ErrorCode::$IllegalIv;
 		}
-		$aesIV=base64_decode($iv);
+		$aesIV=base64_decode(str_replace(" ","+",$iv));
 
-		$aesCipher=base64_decode($encryptedData);
+		$aesCipher=base64_decode(str_replace(" ","+",$encryptedData));
 
 		$result=openssl_decrypt( $aesCipher, "AES-128-CBC", $aesKey, 1, $aesIV);
 
