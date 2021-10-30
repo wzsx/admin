@@ -102,6 +102,7 @@ class CartController extends Controller
             $s['goods_price']=$failuresRes[$s['goods_id']]['goods_price'];
             $s['goods_size']=$failuresRes[$s['goods_id']]['goods_size'];
         }
+        rsort($goods);
         return ['code' => 0, 'msg' => '成功','data'=>['valid'=>array_values($goods),'failure'=>array_values($goods_on)]];
 
     }
