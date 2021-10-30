@@ -46,7 +46,7 @@ class CartController extends Controller
         $mid = $params['mid'];
         $goods_id = $params['goods_id'];
         $goods_num = $params['goods_num']??0;
-        $is_selected = $params['is_selected']??0;
+//        $is_selected = $params['is_selected']??0;
         if (!$goods_id || !$mid) {
             return ['code' => 500001, 'msg' => '缺少必要参数'];
         }
@@ -58,7 +58,8 @@ class CartController extends Controller
             return ['code' => 300001, 'msg' => '删除失败'];
         }
             $update_at = date('Y-m-d H:i:s');
-            $update = CartModel::query()->where(['mid'=>$mid,'goods_id'=>$goods_id])->update(['goods_num'=>$goods_num,'update_at'=>$update_at,'is_selected'=>$is_selected]);
+//            $update = CartModel::query()->where(['mid'=>$mid,'goods_id'=>$goods_id])->update(['goods_num'=>$goods_num,'update_at'=>$update_at,'is_selected'=>$is_selected]);
+        $update = CartModel::query()->where(['mid'=>$mid,'goods_id'=>$goods_id])->update(['goods_num'=>$goods_num,'update_at'=>$update_at]);
             if($update){
                 return ['code' => 0, 'msg' => '成功','data'=>[]];
             }
@@ -72,7 +73,7 @@ class CartController extends Controller
         if (!$mid) {
             return ['code' => 500001, 'msg' => '缺少必要参数'];
         }
-        $goods = CartModel::query()->where(['mid' => $mid, 'status' => 0])->select(['id','goods_id','goods_num','is_selected'])->get()->toArray();
+        $goods = CartModel::query()->where(['mid' => $mid, 'status' => 0])->select(['id','goods_id','goods_num'])->get()->toArray();
         $goods_id = array_column($goods, 'goods_id');
         $goods_on = $goods;
         $goods_info = GoodsModel::query()->whereIn('goods_id', $goods_id)->where(['if_disable'=>0])->select('goods_id', 'goods_name', 'goods_lord_img', 'goods_price', 'goods_size')->get()->toArray();
