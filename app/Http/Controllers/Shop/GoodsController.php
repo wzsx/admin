@@ -50,6 +50,7 @@ class GoodsController extends Controller
             'goods_name'=>$list['goods_name'],
             'goods_lord_img'=>$list['goods_lord_img'],
             'goods_about'=>$list['goods_about'],
+
             'goods_size'=>$list['goods_size'],
             'goods_price'=>$list['goods_price'],
         ];

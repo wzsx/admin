@@ -154,7 +154,9 @@ class WxController extends Controller
         $client=new Client(['timeout'=>5,'verify'=>false]);
         $res=$client->get($url);
         $arr=(string)$res->getBody();
+//        var_dump($arr);
         $arr=json_decode($arr,true);
+//        var_dump($arr);
         if(empty($arr)||empty($arr['openid'])||empty($arr['session_key'])){
             return ['code' => 200001, 'msg' => 'code已过期或不正确'];
         }
@@ -175,13 +177,12 @@ class WxController extends Controller
             return ['code' => 0, 'msg' => $errCode];
         }
         $data = json_decode($data, true);
-        $session3rd = self::randomFromDev(16);
 //        $data['session3rd'] = $session3rd;
 //        cache($session3rd, $openid. $session_key);
         $ars = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->get()->toArray();
         if($ars){
             $update_at = date('Y-m-d H:i:s');
-             $update = ShopUserModel::query()->where(['openid'=>$openid])->update(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'update_at'=>$update_at]);
+             $update = ShopUserModel::query()->where(['openid'=>$openid])->update(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'update_at'=>$update_at]);
             if($update){
                 $cate = ShopUserModel::query()->where(['openid'=>$openid])->select('*')->first()->toArray();
                 $user_res=[
@@ -193,6 +194,7 @@ class WxController extends Controller
                 return ['code'=>200,'msg'=>'ok','data'=>$user_res];
             }
         }
+        $session3rd = self::randomFromDev(16);
         $created_at = date('Y-m-d H:i:s');
         $info = ShopUserModel::query()->insert(['nickname'=>$data['nickName'],'face_url'=>$data['avatarUrl'],'gender'=>$data['gender'],'s_key'=>$session_key,'openid'=>$openid,'token'=>$session3rd,'created_at'=>$created_at]);
         if($info){
@@ -230,4 +232,8 @@ class WxController extends Controller
         return substr($result, 0, $len);
     }
 
+    public function ades(){
+        $session3rd = self::randomFromDev(16);
+        var_dump($session3rd);
+}
 }
