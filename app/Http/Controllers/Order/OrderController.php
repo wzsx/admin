@@ -39,10 +39,11 @@ class OrderController extends Controller
             $coupon_cut = 0;
             $coupon_status = 0;
         }
-        return $commodity;
-//        $sum = 0;
-//        foreach ($commodity as $key =>$v) {
-//            $price = GoodsModel::query()->where(['goods_id'=>$v['goods_id']])->pluck('goods_price');
+//        return $commodity;
+        $sum = 0;
+        foreach ($commodity as $key =>$v) {
+            $price = GoodsModel::query()->where(['goods_id'=>$v['goods_id']])->pluck('goods_price');
+            return ['code'=>$price,'data'=>$v['goods_id']];
 //            if($price!=$v['goods_price']) {
 //                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服'];
 //            }elseif (($price*$v['number'])!=($v['goods_price']*$v['number'])){
@@ -52,8 +53,8 @@ class OrderController extends Controller
 //            if($sum!=$gross_price){
 //                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服'];
 //            }
-//        }
-//
+        }
+
 //        //订单表
 //        $str = 'FXT'.date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
 //        $openid = ShopUserModel::query()->where(['mid'=>$mid])->select('openid')->first()->toArray();
