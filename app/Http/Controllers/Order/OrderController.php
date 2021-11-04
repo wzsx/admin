@@ -43,7 +43,7 @@ class OrderController extends Controller
         $sum = 0;
         foreach ($commodity as $key =>$v) {
             $price = GoodsModel::query()->where(['goods_id'=>$v['goods_id']])->pluck('goods_price');
-            return ['code'=>$price,'data'=>$v['goods_id']];
+            return ['code'=>$price,'data'=>$v['goods_id'],'msg'=>$v['goods_price']];
 //            if($price!=$v['goods_price']) {
 //                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服'];
 //            }elseif (($price*$v['number'])!=($v['goods_price']*$v['number'])){
