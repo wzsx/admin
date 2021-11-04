@@ -23,7 +23,8 @@ class OrderController extends Controller
         $mid = $params['mid'];
         $name = $params['order_name'];
         $phone = $params['order_phone'];
-        $commodity = json_decode($params['commodity'],true);//所有商品信息
+//        $commodity = json_decode($params['commodity'],true);//所有商品信息
+        $commodity=$params['commodity'];
         $gross_price = $params['gross_price'];
         $total_price = $params['total_price'];
         $desc = $params['desc'];//留言
