@@ -50,3 +50,7 @@ Route::get('/wx/session','Wx\WxController@Session');
 Route::get('/wx/sa','Wx\WxController@weappLogin');
 Route::get('/wx/wxlogin','Wx\WxController@wxLogin');
 Route::get('/wx/ade','Wx\WxController@ades');
+
+//预订单
+Route::post('/order/beforehand','Order\OrderController@beforehandOrder');
+Route::get('/order/css','Order\OrderController@css');

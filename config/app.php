@@ -67,8 +67,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
-
+//    'timezone' => 'Asia/Shanghai',
+    'timezone' => 'PRC',
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
