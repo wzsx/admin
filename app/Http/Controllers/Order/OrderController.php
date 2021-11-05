@@ -66,7 +66,9 @@ class OrderController extends Controller
         foreach ($commodity as $key =>$v) {
             $carousel = OrderGoodsModel::query()->insert(['mid'=>$mid,'order_no'=>$str,'goods_id'=>$v['goods_id'],'goods_name'=>$v['goods_name'],'goods_size'=>$v['goods_size'],'goods_img'=>$v['goods_img'],'selling_price'=>$v['goods_price'],'number'=>$v['number'],'create_at'=>$create_at,'dis_price'=>$dis_price]);
         }
-        if($carousel || $order){
+        $goods = OrderGoodsModel::query()->where(['order_no'=>$str])->pluck('goods_id');
+        $delete_cat_goods = CartModel::query()->where(['mid'=>$mid])->whereIn('goods_id',$goods)->delete();
+        if($carousel || $order||$delete_cat_goods){
             $job = (new OrderStatus($str))->delay(900);
             $this->dispatch($job);
             return ['code' => 0, 'msg' => '生成预订单成功','data'=>['order_no'=>$str]];
@@ -77,12 +79,9 @@ class OrderController extends Controller
 
     //cs
     public function css(){
-        $str = 'FXT'.date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
-        var_dump($str);
-        return ['code' => 0, 'msg' => '生成预订单成功','data'=>['order_no'=>$str]];
-//        $goods_id = 697239;
-//        $job = (new OrderStatus($goods_id))->delay(180);
-//        $this->dispatch($job);
+        $goods_id = 697239;
+        $job = (new OrderStatus($goods_id))->delay(180);
+        $this->dispatch($job);
     }
 }
 ?>
