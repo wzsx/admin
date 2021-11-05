@@ -56,3 +56,4 @@ Route::post('/order/beforehand','Order\OrderController@beforehandOrder');
 Route::get('/order/css','Order\OrderController@css');
 Route::post('/order/unpaid','Order\OrderController@unpaid');
 Route::post('/order/ifpay','Order\OrderController@ifpay');
+Route::post('/order/unshipped','Order\OrderController@unshipped');
