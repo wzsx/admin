@@ -25,7 +25,7 @@ class OrderController extends Controller
         $phone = $params['order_phone'];
 //        $commodity = json_decode($params['commodity'],true);//所有商品信息
         $commodity=$params['commodity'];
-//        $commodity = [['goods_id'=>697239,'goods_img'=>1111,'goods_price'=>39,'number'=>1,'goods_name'=>'清补凉','goods_size'=>1000]];
+//        $commodity = [['goods_id'=>697239,'goods_img'=>1111,'goods_price'=>39,'number'=>1,'goods_name'=>'清补凉','goods_size'=>1000],['goods_id'=>697238,'goods_img'=>1111,'goods_price'=>39,'number'=>1,'goods_name'=>'艾草','goods_size'=>1000]];
         $gross_price = $params['gross_price'];
         $total_price = $params['total_price'];
         $desc = $params['desc'];//留言
@@ -45,15 +45,16 @@ class OrderController extends Controller
         foreach ($commodity as $key =>$v) {
             $price = GoodsModel::query()->where(['goods_id'=>$v['goods_id']])->value('goods_price');
             if($price!=$v['goods_price']) {
-                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服'];
+                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服1'];
             }elseif (($price*$v['number'])!=($v['goods_price']*$v['number'])){
-                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服'];
+                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服2'];
             }
             $sum +=$v['goods_price']*$v['number'];
-            if($sum!=$gross_price){
-                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服'];
-            }
         }
+            if($sum!=$gross_price){
+                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服3'];
+            }
+
 
         //订单表
         $str = 'FXT'.date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
@@ -84,22 +85,21 @@ class OrderController extends Controller
         $pay_at = date('Y-m-d H:i:s');
         if($status==1){
             OrderModel::query()->where(['order_no'=>$order_no,'mid'=>$mid])->update(['status'=>2,'is_pay'=>1,'pay_at'=>$pay_at]);
-//            OrderGoodsModel::query()->where(['order_no'=>$order_no,'mid'=>$mid])->update(['is_deleted'=>1]);
             return ['code' => 0, 'msg' => '支付成功','data'=>[]];
         }
         return ['code' => 500004, 'msg' => '订单支付失败'];
     }
 
-////当前用户的待支付订单
-//    public function unpaid(Request $request){
-//        $params = $request->all();
-//        $mid = $params['mid'];
-//        $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
-//            ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>1])
-//            ->select('o.order_no,g.goods_id,goods_img,goods_name,selling_price,goods_size,number')
-//            ->get()->toArray();
-//        var_dump($order);
-//    }
+//当前用户的待支付订单
+    public function unpaid(Request $request){
+        $params = $request->all();
+        $mid = $params['mid'];
+        $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
+            ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>1])
+            ->select('o.order_no','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+            ->get()->toArray();
+        var_dump($order);
+    }
 
     //cs
     public function css(){
