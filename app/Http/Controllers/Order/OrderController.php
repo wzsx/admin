@@ -33,7 +33,8 @@ class OrderController extends Controller
         $coupon_info = $params['coupon_info']??null;
         $order_goods_num = $params['order_goods_num'];//商品总数
         if($coupon_info!=null){
-            $coupon_cut = json_decode($coupon_info,true)['coupon_cut'];
+//            $coupon_cut = json_decode($coupon_info,true)['coupon_cut'];
+            $coupon_cut = $coupon_info['coupon_cut'];
             $coupon_status = 1;
         }else{
             $coupon_cut = 0;
@@ -60,7 +61,7 @@ class OrderController extends Controller
 
         //订单表
         $str = 'FXT'.date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
-        $openid = ShopUserModel::query()->where(['mid'=>$mid])->select('openid')->first()->toArray();
+        $openid = ShopUserModel::query()->where(['mid'=>$mid])->value('openid');
         $create_at = date('Y-m-d H:i:s');
         $order = OrderModel::query()->insert(['order_no'=>$str,'openid'=>$openid,'mid'=>$mid,'freight_price'=>$freight_price,'goods_price'=>$gross_price,'total_price'=>$total_price,'desc'=>$desc,'create_at'=>$create_at,'receiver_address'=>$receiver_address,'order_goods_num'=>$order_goods_num,'order_phone'=>$phone,'order_name'=>$name,'coupon_info'=>$coupon_info,'coupon_cut'=>$coupon_cut,'coupon_status'=>$coupon_status]);
         $dis_price = $gross_price - $coupon_cut;
@@ -79,9 +80,12 @@ class OrderController extends Controller
 
     //cs
     public function css(){
-        $goods_id = 697239;
-        $job = (new OrderStatus($goods_id))->delay(180);
-        $this->dispatch($job);
+        $str = 'FXT'.date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
+        var_dump($str);
+        return ['code' => 0, 'msg' => '生成预订单成功','data'=>['order_no'=>$str]];
+//        $goods_id = 697239;
+//        $job = (new OrderStatus($goods_id))->delay(180);
+//        $this->dispatch($job);
     }
 }
 ?>
