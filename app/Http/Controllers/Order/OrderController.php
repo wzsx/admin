@@ -75,7 +75,31 @@ class OrderController extends Controller
         }
     }
 
+    //假支付
+    public function ifpay(Request $request){
+        $params = $request->all();
+        $mid = $params['mid'];
+        $order_no = $params['order_no'];
+        $status = $params['status']??0;
+        $pay_at = date('Y-m-d H:i:s');
+        if($status==1){
+            OrderModel::query()->where(['order_no'=>$order_no,'mid'=>$mid])->update(['status'=>2,'is_pay'=>1,'pay_at'=>$pay_at]);
+//            OrderGoodsModel::query()->where(['order_no'=>$order_no,'mid'=>$mid])->update(['is_deleted'=>1]);
+            return ['code' => 0, 'msg' => '支付成功','data'=>[]];
+        }
+        return ['code' => 500004, 'msg' => '订单支付失败'];
+    }
 
+////当前用户的待支付订单
+//    public function unpaid(Request $request){
+//        $params = $request->all();
+//        $mid = $params['mid'];
+//        $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
+//            ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>1])
+//            ->select('o.order_no,g.goods_id,goods_img,goods_name,selling_price,goods_size,number')
+//            ->get()->toArray();
+//        var_dump($order);
+//    }
 
     //cs
     public function css(){
