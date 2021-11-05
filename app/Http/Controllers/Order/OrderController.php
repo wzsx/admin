@@ -66,12 +66,13 @@ class OrderController extends Controller
         $order = OrderModel::query()->insert(['order_no'=>$str,'openid'=>$openid,'mid'=>$mid,'freight_price'=>$freight_price,'goods_price'=>$gross_price,'total_price'=>$total_price,'desc'=>$desc,'create_at'=>$create_at,'receiver_address'=>$receiver_address,'order_goods_num'=>$order_goods_num,'order_phone'=>$phone,'order_name'=>$name,'coupon_info'=>$coupon_info,'coupon_cut'=>$coupon_cut,'coupon_status'=>$coupon_status]);
         $dis_price = $gross_price - $coupon_cut;
         //写入订单商品表
+        $carousel = [];
         foreach ($commodity as $key =>$v) {
             $carousel = OrderGoodsModel::query()->insert(['mid'=>$mid,'order_no'=>$str,'goods_id'=>$v['goods_id'],'goods_title'=>$v['goods_name'],'goods_size'=>$v['goods_size'],'goods_img'=>$v['goods_img'],'selling_price'=>$v['goods_price'],'number'=>$v['number'],'create_at'=>$create_at,'dis_price'=>$dis_price]);
         }
         if($carousel || $order){
-            $job = (new OrderStatus($str))->delay(900);
-            $this->dispatch($job);
+//            $job = (new OrderStatus($str))->delay(900);
+//            $this->dispatch($job);
             return ['code' => 0, 'msg' => '生成预订单成功','data'=>['order_no'=>$str]];
         }
     }
