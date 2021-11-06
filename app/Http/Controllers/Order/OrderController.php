@@ -231,6 +231,7 @@ class OrderController extends Controller
 //        $goods_id = 697239;
 //        $job = (new OrderStatus($goods_id))->delay(180);
 //        $this->dispatch($job);
+        date_default_timezone_set('PRC');
         var_dump(date('Y-m-d H:i:s'));
     }
 }
