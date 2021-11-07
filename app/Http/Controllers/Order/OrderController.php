@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\AdvisoryLogModel;
 use App\Jobs\OrderStatus;
+use Illuminate\Support\Carbon;
 use App\User;
 use Illuminate\Routing\Router;
 //use GuzzleHttp\Client;
@@ -70,7 +71,7 @@ class OrderController extends Controller
         $goods = OrderGoodsModel::query()->where(['order_no'=>$str])->pluck('goods_id');
         $delete_cat_goods = CartModel::query()->where(['mid'=>$mid])->whereIn('goods_id',$goods)->delete();
         if($carousel || $order||$delete_cat_goods){
-            $job = (new OrderStatus($str))->delay(900);
+            $job = (new OrderStatus($str))->delay(Carbon::now()->addMinute(15));
             $this->dispatch($job);
             return ['code' => 0, 'msg' => '生成预订单成功','data'=>['order_no'=>$str]];
         }
@@ -229,8 +230,17 @@ class OrderController extends Controller
     }
     //cs
     public function css(){
-        $goods_id = "FXT2021110556484997";
-        $job = (new OrderStatus($goods_id))->delay(60);
+        $goods_id = "FXT2021110510156575";
+        $job = (new OrderStatus($goods_id))->delay(Carbon::now()->addMinute(2));
+        $this->dispatch($job);
+//        date_default_timezone_set('PRC');
+        var_dump(date('Y-m-d H:i:s'));
+    }
+
+    //cs
+    public function bss(){
+        $goods_id = "FXT2021110610249485";
+        $job = (new OrderStatus($goods_id))->delay(Carbon::now()->addMinute(2));
         $this->dispatch($job);
 //        date_default_timezone_set('PRC');
         var_dump(date('Y-m-d H:i:s'));
