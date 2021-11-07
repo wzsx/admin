@@ -37,7 +37,9 @@ class OrderStatus implements ShouldQueue
     {
         //
         $user = $this->order_no;
+        var_dump($user);
         $status = OrderModel::query()->where(['order_no'=>$user])->value('is_pay');
+        var_dump($status);
         if($status!=1){
             OrderModel::query()->where(['order_no'=>$user])->update(['status'=>0,'is_deleted'=>1]);
             OrderGoodsModel::query()->where(['order_no'=>$user])->update(['is_deleted'=>1]);

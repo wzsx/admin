@@ -230,7 +230,7 @@ class OrderController extends Controller
     }
     //cs
     public function css(){
-        $goods_id = "FXT2021110510156575";
+        $goods_id = "FXT2021110556484997";
         $job = (new OrderStatus($goods_id))->delay(Carbon::now()->addMinute(2));
         $this->dispatch($job);
 //        date_default_timezone_set('PRC');
