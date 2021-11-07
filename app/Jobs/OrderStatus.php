@@ -26,7 +26,6 @@ class OrderStatus implements ShouldQueue
     {
         //
         $this->order_no = $order_no;
-        var_dump($order_no);
     }
 
     /**
@@ -38,9 +37,7 @@ class OrderStatus implements ShouldQueue
     {
         //
         $user = $this->order_no;
-//        GoodsModel::query()->where(['goods_id'=>$user])->update(['goods_name'=>'薄荷清茶']);
         $status = OrderModel::query()->where(['order_no'=>$user])->value('is_pay');
-        var_dump($status);
         if($status!=1){
             OrderModel::query()->where(['order_no'=>$user])->update(['status'=>0,'is_deleted'=>1]);
             OrderGoodsModel::query()->where(['order_no'=>$user])->update(['is_deleted'=>1]);
