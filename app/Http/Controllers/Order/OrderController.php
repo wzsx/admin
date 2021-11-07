@@ -230,7 +230,7 @@ class OrderController extends Controller
     //cs
     public function css(){
         $goods_id = "FXT2021110655100535";
-        $job = (new OrderStatus($goods_id))->delay(10);
+        $job = (new OrderStatus($goods_id))->delay(60);
         $this->dispatch($job);
 //        date_default_timezone_set('PRC');
         var_dump(date('Y-m-d H:i:s'));
