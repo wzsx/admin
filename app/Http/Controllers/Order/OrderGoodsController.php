@@ -16,7 +16,7 @@ use Illuminate\Routing\Router;
 //use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Redis;
 use App\services\Doctor\DoctorServices;
-class OrderController extends Controller
+class OrderGoodsController extends Controller
 {
   //生成预订单
     public function beforehandOrder(Request $request){
@@ -246,6 +246,11 @@ class OrderController extends Controller
 //        $status = GoodsModel::query()->where(['goods_id'=>697239])->value('if_disable');
 //        var_dump($status);
         var_dump(date('Y-m-d H:i:s'));
+    }
+
+    public function updateOrder($order_no){
+        OrderModel::query()->where(['order_no'=>$order_no])->update(['status'=>0,'is_deleted'=>1]);
+        OrderGoodsModel::query()->where(['order_no'=>$order_no])->update(['is_deleted'=>1]);
     }
 }
 ?>
