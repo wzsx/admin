@@ -71,8 +71,8 @@ class OrderController extends Controller
         $goods = OrderGoodsModel::query()->where(['order_no'=>$str])->pluck('goods_id');
         $delete_cat_goods = CartModel::query()->where(['mid'=>$mid])->whereIn('goods_id',$goods)->delete();
         if($carousel || $order||$delete_cat_goods){
-            $job = (new OrderStatus($str))->delay(Carbon::now()->addMinute(15));
-            $this->dispatch($job);
+//            $job = (new OrderStatus($str))->delay(Carbon::now()->addMinute(15));
+//            $this->dispatch($job);
             return ['code' => 0, 'msg' => '生成预订单成功','data'=>['order_no'=>$str]];
         }
     }
@@ -243,6 +243,8 @@ class OrderController extends Controller
 //        $job = (new OrderStatus($goods_id))->delay(Carbon::now()->addMinute(2));
 //        $this->dispatch($job);
 //        date_default_timezone_set('PRC');
+        $status = GoodsModel::query()->where(['goods_id'=>697239])->value('if_disable');
+        var_dump($status);
         var_dump(date('Y-m-d H:i:s'));
     }
 }
