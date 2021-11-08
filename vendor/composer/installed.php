@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '96615ba527e772dc215e126cb6fdc9906946c773',
+        'reference' => 'b65bba03b6d05321c684b04e2314b4203b4e7b79',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -367,7 +367,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '96615ba527e772dc215e126cb6fdc9906946c773',
+            'reference' => 'b65bba03b6d05321c684b04e2314b4203b4e7b79',
             'dev_requirement' => false,
         ),
         'laravel/tinker' => array(
@@ -628,12 +628,12 @@
             'dev_requirement' => true,
         ),
         'predis/predis' => array(
-            'pretty_version' => 'v1.1.7',
-            'version' => '1.1.7.0',
+            'pretty_version' => 'v1.1.9',
+            'version' => '1.1.9.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../predis/predis',
             'aliases' => array(),
-            'reference' => 'b240daa106d4e02f0c5b7079b41e31ddf66fddf8',
+            'reference' => 'c50c3393bb9f47fa012d0cdfb727a266b0818259',
             'dev_requirement' => false,
         ),
         'psr/container' => array(
