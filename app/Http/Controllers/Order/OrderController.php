@@ -239,11 +239,11 @@ class OrderController extends Controller
 
     //cs
     public function bss(){
-        $goods_id = "FXT2021110610249485";
-        $job = (new OrderStatus($goods_id))->delay(Carbon::now()->addMinute(2));
-        $this->dispatch($job);
+//        $goods_id = "FXT2021110610249485";
+//        $job = (new OrderStatus($goods_id))->delay(Carbon::now()->addMinute(2));
+//        $this->dispatch($job);
 //        date_default_timezone_set('PRC');
-//        var_dump(date('Y-m-d H:i:s'));
+        var_dump(date('Y-m-d H:i:s'));
     }
 }
 ?>
