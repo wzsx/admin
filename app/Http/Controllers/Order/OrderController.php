@@ -139,6 +139,7 @@ class OrderController extends Controller
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>$status])
                 ->select('o.order_no','o.status','o.create_at','o.order_phone','o.order_name','o.receiver_address','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item){
@@ -157,6 +158,7 @@ class OrderController extends Controller
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>$status])
                 ->select('o.order_no','o.status','o.create_at','o.order_phone','o.order_name','o.receiver_address','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item){
@@ -175,6 +177,7 @@ class OrderController extends Controller
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>1,'o.status'=>$status])
                 ->select('o.order_no','o.status','o.pay_at','o.order_phone','o.order_name','o.receiver_address','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item){
@@ -193,6 +196,7 @@ class OrderController extends Controller
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>1,'o.status'=>$status])
                 ->select('o.order_no','o.status','o.pay_at','o.order_phone','o.order_name','o.receiver_address','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item){
@@ -211,6 +215,7 @@ class OrderController extends Controller
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid' => $mid, 'o.is_pay' => 1, 'o.status' => $status])
                 ->select('o.order_no','o.status','o.complete_date','o.order_phone','o.order_name','o.receiver_address', 'g.goods_id', 'g.goods_img', 'g.goods_name', 'g.selling_price', 'g.goods_size', 'g.number')
+                ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item) {
@@ -229,7 +234,9 @@ class OrderController extends Controller
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid' => $mid])
                 ->select('o.order_no','o.status','o.create_at','o.pay_at','o.complete_date','o.order_phone','o.order_name','o.receiver_address','g.goods_id', 'g.goods_img', 'g.goods_name', 'g.selling_price', 'g.goods_size', 'g.number')
-                ->get()->toArray();
+                ->orderBy('o.create_at','DESC')
+                ->get()
+                ->toArray();
             $arr = [];
             foreach ($order as $item) {
                 if (isset($arr[$item['order_no']])) {
@@ -243,6 +250,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['details'] = ['order_phone'=>$item['order_phone'],'order_name'=>$item['order_name'],'receiver_address'=>$item['receiver_address']];
                     $arr[$item['order_no']]['sub'][] = ['goods_id' => $item['goods_id'], 'goods_name' => $item['goods_name'], 'goods_img' => $item['goods_img'], 'selling_price' => $item['selling_price'], 'goods_size' => $item['goods_size'], 'number' => $item['number']];
                 }
+
             }
             return ['code' => 0, 'msg' => '成功','data'=>array_values($arr)];
         }
