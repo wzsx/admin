@@ -71,8 +71,8 @@ class OrderController extends Controller
         $goods = OrderGoodsModel::query()->where(['order_no'=>$str])->pluck('goods_id');
         $delete_cat_goods = CartModel::query()->where(['mid'=>$mid])->whereIn('goods_id',$goods)->delete();
         if($carousel || $order||$delete_cat_goods){
-//            $job = (new OrderStatus($str))->delay(Carbon::now()->addMinute(15));
-//            $this->dispatch($job);
+            $job = (new OrderStatus($str))->delay(Carbon::now()->addMinute(15));
+            $this->dispatch($job);
             return ['code' => 0, 'msg' => '生成预订单成功','data'=>['order_no'=>$str]];
         }
     }
@@ -138,7 +138,7 @@ class OrderController extends Controller
         if($status == 0){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>$status])
-                ->select('o.order_no','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->select('o.order_no','o.status','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item){
@@ -146,6 +146,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['sub'][]= ['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }else{
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
+                    $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }
             }
@@ -153,7 +154,7 @@ class OrderController extends Controller
         }elseif ($status == 1){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>$status])
-                ->select('o.order_no','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->select('o.order_no','o.status','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item){
@@ -161,6 +162,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['sub'][]= ['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }else{
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
+                    $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }
             }
@@ -168,7 +170,7 @@ class OrderController extends Controller
         }elseif ($status == 2){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>1,'o.status'=>$status])
-                ->select('o.order_no','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->select('o.order_no','o.status','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item){
@@ -176,6 +178,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['sub'][]= ['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }else{
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
+                    $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }
             }
@@ -183,7 +186,7 @@ class OrderController extends Controller
         }elseif ($status == 3){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>1,'o.status'=>$status])
-                ->select('o.order_no','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->select('o.order_no','o.status','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item){
@@ -191,6 +194,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['sub'][]= ['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }else{
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
+                    $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }
             }
@@ -198,7 +202,7 @@ class OrderController extends Controller
         }elseif ($status == 4) {
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid' => $mid, 'o.is_pay' => 1, 'o.status' => $status])
-                ->select('o.order_no', 'g.goods_id', 'g.goods_img', 'g.goods_name', 'g.selling_price', 'g.goods_size', 'g.number')
+                ->select('o.order_no','o.status', 'g.goods_id', 'g.goods_img', 'g.goods_name', 'g.selling_price', 'g.goods_size', 'g.number')
                 ->get()->toArray();
             $arr = [];
             foreach ($order as $item) {
@@ -206,6 +210,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['sub'][] = ['goods_id' => $item['goods_id'], 'goods_name' => $item['goods_name'], 'goods_img' => $item['goods_img'], 'selling_price' => $item['selling_price'], 'goods_size' => $item['goods_size'], 'number' => $item['number']];
                 } else {
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
+                    $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['sub'][] = ['goods_id' => $item['goods_id'], 'goods_name' => $item['goods_name'], 'goods_img' => $item['goods_img'], 'selling_price' => $item['selling_price'], 'goods_size' => $item['goods_size'], 'number' => $item['number']];
                 }
             }
