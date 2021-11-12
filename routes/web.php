@@ -59,3 +59,7 @@ Route::post('/order/ifpay','Order\OrderController@ifpay');
 Route::post('/order/unshipped','Order\OrderController@unshipped');
 Route::post('/order/list','Order\OrderController@orderStatus');
 Route::get('/order/bss','Order\OrderController@bss');
+
+
+//
+Route::any('/wechat', 'WeChatController@serve');

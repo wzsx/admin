@@ -32,10 +32,6 @@ class OrderController extends Controller
         $receiver_address = $params['receiver_address'];
         $coupon_info = $params['coupon_info']??null;
         $order_goods_num = $params['order_goods_num'];//商品总数
-//        if (!$name || !$mid || !$phone ||!$commodity ||!$gross_price ||!$total_price ||!$freight_price ||!$receiver_address ||!$order_goods_num) {
-//            return ['code' => 500001, 'msg' => '缺少必要参数'];
-//        }
-//        return ['data'=>['order_name'=>$name,'mid'=>$mid,'order_phone'=>$phone,'commodity'=>$commodity,'gross_price'=>$gross_price,'total_price'=>$total_price,'desc'=>$desc,'freight_price'=>$freight_price,'receiver_address'=>$receiver_address,'coupon_info'=>$coupon_info,'order_goods_num'=>$order_goods_num]];
         if($coupon_info!=null){
             $coupon_cut = $coupon_info['coupon_cut'];
             $coupon_status = 1;
