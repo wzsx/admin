@@ -24,9 +24,7 @@ class OrderController extends Controller
         $mid = $params['mid'];
         $name = $params['order_name'];
         $phone = $params['order_phone'];
-//        $commodity = json_decode($params['commodity'],true);//所有商品信息
         $commodity=$params['commodity'];
-//        $commodity = [['goods_id'=>697239,'goods_img'=>1111,'goods_price'=>39,'number'=>1,'goods_name'=>'清补凉','goods_size'=>1000],['goods_id'=>697238,'goods_img'=>1111,'goods_price'=>39,'number'=>1,'goods_name'=>'艾草','goods_size'=>1000]];
         $gross_price = $params['gross_price'];
         $total_price = $params['total_price'];
         $desc = $params['desc'];//留言
@@ -35,7 +33,6 @@ class OrderController extends Controller
         $coupon_info = $params['coupon_info']??null;
         $order_goods_num = $params['order_goods_num'];//商品总数
         if($coupon_info!=null){
-//            $coupon_cut = json_decode($coupon_info,true)['coupon_cut'];
             $coupon_cut = $coupon_info['coupon_cut'];
             $coupon_status = 1;
         }else{
