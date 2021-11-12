@@ -27,11 +27,14 @@ class OrderController extends Controller
         $commodity=$params['commodity'];
         $gross_price = $params['gross_price'];
         $total_price = $params['total_price'];
-        $desc = $params['desc'];//留言
+        $desc = $params['desc']??null;//留言
         $freight_price = $params['freight_price'];
         $receiver_address = $params['receiver_address'];
         $coupon_info = $params['coupon_info']??null;
         $order_goods_num = $params['order_goods_num'];//商品总数
+        if (!$name || !$mid || !$phone ||!$commodity ||!$gross_price ||!$total_price ||!$freight_price ||!$receiver_address ||!$order_goods_num) {
+            return ['code' => 500001, 'msg' => '缺少必要参数'];
+        }
         if($coupon_info!=null){
             $coupon_cut = $coupon_info['coupon_cut'];
             $coupon_status = 1;
@@ -43,14 +46,14 @@ class OrderController extends Controller
         foreach ($commodity as $key =>$v) {
             $price = GoodsModel::query()->where(['goods_id'=>$v['goods_id']])->value('goods_price');
             if($price!=$v['goods_price']) {
-                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服1'];
+                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服'];
             }elseif (($price*$v['number'])!=($v['goods_price']*$v['number'])){
-                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服2'];
+                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服'];
             }
             $sum +=$v['goods_price']*$v['number'];
         }
             if($sum!=$gross_price){
-                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服3'];
+                return ['code' => 500003, 'msg' => '商品价格不符,请联系客服'];
             }
 
 
@@ -79,6 +82,9 @@ class OrderController extends Controller
         $params = $request->all();
         $mid = $params['mid'];
         $order_no = $params['order_no'];
+        if (!$mid || !$order_no) {
+            return ['code' => 500001, 'msg' => '缺少必要参数'];
+        }
         $status = $params['status']??0;
         $pay_at = date('Y-m-d H:i:s');
         if($status==1){
@@ -131,6 +137,9 @@ class OrderController extends Controller
     public function orderStatus(Request $request){
         $params = $request->all();
         $mid = $params['mid'];
+        if (!$mid) {
+            return ['code' => 500001, 'msg' => '缺少必要参数'];
+        }
         $status = $params['status'];
         if($status == 0){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
