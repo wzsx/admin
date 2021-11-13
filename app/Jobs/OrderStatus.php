@@ -6,7 +6,7 @@ use App\Model\GoodsModel;
 use App\Model\OrderGoodsModel;
 use App\Model\OrderModel;
 use App\Http\Controllers\Order\OrderController;
-use App\Http\Controllers\Order\OrderGoodsController;
+use App\Http\Controllers\Order\AdminOrderController;
 use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

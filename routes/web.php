@@ -63,3 +63,6 @@ Route::get('/order/bss','Order\OrderController@bss');
 
 //
 Route::any('/wechat', 'WeChatController@serve');
+
+//后台
+Route::get('/admin/orderlist','Order\AdminOrderController@webOrderList');
