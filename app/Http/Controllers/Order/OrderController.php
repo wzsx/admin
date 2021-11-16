@@ -91,45 +91,6 @@ class OrderController extends Controller
         return ['code' => 500004, 'msg' => '订单支付失败'];
     }
 
-//当前用户的待支付订单
-    public function unpaid(Request $request){
-        $params = $request->all();
-        $mid = $params['mid'];
-        $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
-            ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>1])
-            ->select('o.order_no','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
-            ->get()->toArray();
-        $arr = [];
-        foreach ($order as $item){
-            if(isset($arr[$item['order_no']])){
-                $arr[$item['order_no']]['sub'][]= ['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
-            }else{
-                $arr[$item['order_no']]['order_no'] = $item['order_no'];
-                $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
-            }
-        }
-        return ['code' => 0, 'msg' => '成功','data'=>array_values($arr)];
-    }
-
-    //当前用户的待发货订单
-    public function unshipped(Request $request){
-        $params = $request->all();
-        $mid = $params['mid'];
-        $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
-            ->where(['o.mid'=>$mid,'o.is_pay'=>1,'o.status'=>2])
-            ->select('o.order_no','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
-            ->get()->toArray();
-        $arr = [];
-        foreach ($order as $item){
-            if(isset($arr[$item['order_no']])){
-                $arr[$item['order_no']]['sub'][]= ['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
-            }else{
-                $arr[$item['order_no']]['order_no'] = $item['order_no'];
-                $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
-            }
-        }
-        return ['code' => 0, 'msg' => '成功','data'=>array_values($arr)];
-    }
     //订单列表
     public function orderStatus(Request $request){
         $params = $request->all();
@@ -141,7 +102,7 @@ class OrderController extends Controller
         if($status == 0){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>$status])
-                ->select('o.order_no','o.status','o.create_at','o.order_phone','o.order_name','o.receiver_address','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->select('o.order_no','o.status','o.create_at','o.order_phone','o.order_name','o.receiver_address','o.logistics_odd','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
                 ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
@@ -152,6 +113,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
                     $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['create_at'] = $item['create_at'];
+                    $arr[$item['order_no']]['logistics_odd'] = $item['logistics_odd'];
                     $arr[$item['order_no']]['details'] = ['order_phone'=>$item['order_phone'],'order_name'=>$item['order_name'],'receiver_address'=>$item['receiver_address']];
                     $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }
@@ -160,7 +122,7 @@ class OrderController extends Controller
         }elseif ($status == 1){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>0,'o.status'=>$status])
-                ->select('o.order_no','o.status','o.create_at','o.order_phone','o.order_name','o.receiver_address','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->select('o.order_no','o.status','o.create_at','o.order_phone','o.order_name','o.receiver_address','o.logistics_odd','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
                 ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
@@ -171,6 +133,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
                     $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['create_at'] = $item['create_at'];
+                    $arr[$item['order_no']]['logistics_odd'] = $item['logistics_odd'];
                     $arr[$item['order_no']]['details'] = ['order_phone'=>$item['order_phone'],'order_name'=>$item['order_name'],'receiver_address'=>$item['receiver_address']];
                     $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }
@@ -179,7 +142,7 @@ class OrderController extends Controller
         }elseif ($status == 2){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>1,'o.status'=>$status])
-                ->select('o.order_no','o.status','o.pay_at','o.order_phone','o.order_name','o.receiver_address','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->select('o.order_no','o.status','o.pay_at','o.order_phone','o.order_name','o.receiver_address','o.logistics_odd','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
                 ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
@@ -190,6 +153,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
                     $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['pay_at'] = $item['pay_at'];
+                    $arr[$item['order_no']]['logistics_odd'] = $item['logistics_odd'];
                     $arr[$item['order_no']]['details'] = ['order_phone'=>$item['order_phone'],'order_name'=>$item['order_name'],'receiver_address'=>$item['receiver_address']];
                     $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }
@@ -198,7 +162,7 @@ class OrderController extends Controller
         }elseif ($status == 3){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid'=>$mid,'o.is_pay'=>1,'o.status'=>$status])
-                ->select('o.order_no','o.status','o.pay_at','o.order_phone','o.order_name','o.receiver_address','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
+                ->select('o.order_no','o.status','o.pay_at','o.order_phone','o.order_name','o.receiver_address','o.logistics_odd','g.goods_id','g.goods_img','g.goods_name','g.selling_price','g.goods_size','g.number')
                 ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
@@ -209,6 +173,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
                     $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['pay_at'] = $item['pay_at'];
+                    $arr[$item['order_no']]['logistics_odd'] = $item['logistics_odd'];
                     $arr[$item['order_no']]['details'] = ['order_phone'=>$item['order_phone'],'order_name'=>$item['order_name'],'receiver_address'=>$item['receiver_address']];
                     $arr[$item['order_no']]['sub'][]=['goods_id'=>$item['goods_id'],'goods_name'=>$item['goods_name'],'goods_img'=>$item['goods_img'],'selling_price'=>$item['selling_price'],'goods_size'=>$item['goods_size'],'number'=>$item['number']];
                 }
@@ -217,7 +182,7 @@ class OrderController extends Controller
         }elseif ($status == 4) {
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid' => $mid, 'o.is_pay' => 1, 'o.status' => $status])
-                ->select('o.order_no','o.status','o.complete_date','o.order_phone','o.order_name','o.receiver_address', 'g.goods_id', 'g.goods_img', 'g.goods_name', 'g.selling_price', 'g.goods_size', 'g.number')
+                ->select('o.order_no','o.status','o.complete_date','o.order_phone','o.order_name','o.receiver_address','o.logistics_odd', 'g.goods_id', 'g.goods_img', 'g.goods_name', 'g.selling_price', 'g.goods_size', 'g.number')
                 ->orderBy('o.create_at','DESC')
                 ->get()->toArray();
             $arr = [];
@@ -228,6 +193,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['order_no'] = $item['order_no'];
                     $arr[$item['order_no']]['status'] = $item['status'];
                     $arr[$item['order_no']]['complete_date'] = $item['complete_date'];
+                    $arr[$item['order_no']]['logistics_odd'] = $item['logistics_odd'];
                     $arr[$item['order_no']]['details'] = ['order_phone'=>$item['order_phone'],'order_name'=>$item['order_name'],'receiver_address'=>$item['receiver_address']];
                     $arr[$item['order_no']]['sub'][] = ['goods_id' => $item['goods_id'], 'goods_name' => $item['goods_name'], 'goods_img' => $item['goods_img'], 'selling_price' => $item['selling_price'], 'goods_size' => $item['goods_size'], 'number' => $item['number']];
                 }
@@ -236,7 +202,7 @@ class OrderController extends Controller
         }elseif ($status == 8){
             $order = OrderModel::query()->from('store_order as o')->join('store_order_goods as g', 'o.order_no', '=', 'g.order_no')
                 ->where(['o.mid' => $mid])
-                ->select('o.order_no','o.status','o.create_at','o.pay_at','o.complete_date','o.order_phone','o.order_name','o.receiver_address','g.goods_id', 'g.goods_img', 'g.goods_name', 'g.selling_price', 'g.goods_size', 'g.number')
+                ->select('o.order_no','o.status','o.create_at','o.pay_at','o.complete_date','o.order_phone','o.order_name','o.receiver_address','o.logistics_odd','g.goods_id', 'g.goods_img', 'g.goods_name', 'g.selling_price', 'g.goods_size', 'g.number')
                 ->orderBy('o.create_at','DESC')
                 ->get()
                 ->toArray();
@@ -250,6 +216,7 @@ class OrderController extends Controller
                     $arr[$item['order_no']]['create_at'] = $item['create_at'];
                     $arr[$item['order_no']]['pay_at'] = $item['pay_at'];
                     $arr[$item['order_no']]['complete_date'] = $item['complete_date'];
+                    $arr[$item['order_no']]['logistics_odd'] = $item['logistics_odd'];
                     $arr[$item['order_no']]['details'] = ['order_phone'=>$item['order_phone'],'order_name'=>$item['order_name'],'receiver_address'=>$item['receiver_address']];
                     $arr[$item['order_no']]['sub'][] = ['goods_id' => $item['goods_id'], 'goods_name' => $item['goods_name'], 'goods_img' => $item['goods_img'], 'selling_price' => $item['selling_price'], 'goods_size' => $item['goods_size'], 'number' => $item['number']];
                 }
@@ -257,25 +224,6 @@ class OrderController extends Controller
             }
             return ['code' => 0, 'msg' => '成功','data'=>array_values($arr)];
         }
-    }
-    //cs
-    public function css(){
-        $goods_id = "FXT2021110556484997";
-        $job = (new OrderStatus($goods_id))->delay(Carbon::now()->addMinute(2));
-        $this->dispatch($job);
-//        date_default_timezone_set('PRC');
-        var_dump(date('Y-m-d H:i:s'));
-    }
-
-    //cs
-    public function bss(){
-        $goods_id = 697238;
-        $job = (new OrderStatus($goods_id))->delay(Carbon::now()->addMinute(1));
-        $this->dispatch($job);
-//        date_default_timezone_set('PRC');
-//        $status = GoodsModel::query()->where(['goods_id'=>697239])->value('if_disable');
-//        var_dump($status);
-        var_dump(date('Y-m-d H:i:s'));
     }
 }
 ?>

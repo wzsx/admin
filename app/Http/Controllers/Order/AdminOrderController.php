@@ -18,13 +18,6 @@ use Illuminate\Support\Facades\Redis;
 use App\services\Doctor\DoctorServices;
 class AdminOrderController extends Controller
 {
-    //订单列表
-    public function webOrderList()
-    {
-        $field = ['order_no','status','create_at','order_name','order_phone','receiver_address','desc'];
-        $order = OrderModel::query()->select($field)->orderBy('create_at','DESC')->paginate(10);
-        return ['code' => 0, 'msg' => '成功','data'=>$order];
-    }
     //根据订单号查订单详情
     public function webOrderdetails(Request $request)
     {
@@ -54,19 +47,6 @@ class AdminOrderController extends Controller
             $cost_info = ['freight_price'=>$order['freight_price'],'total_price'=>$order['total_price'],'actual_amount'=>$actual_amount,'coupon_cut'=>$order['coupon_cut']];
             $logistics_info = ['logistics_company'=>$order['logistics_company'],'logistics_odd'=>$order['logistics_odd']];
             return ['code' => 2000, 'msg' => '成功','data'=>['order_info'=>$order_info,'consignee_info'=>$consignee_info,'goods_info'=>array_values($arr),'cost_info'=>$cost_info,'logistics_info'=>$logistics_info]];
-    }
-
-    //根据订单号查询单条订单
-    public function webSingleOrder(Request $request)
-    {
-        $params = $request->all();
-        if (empty($params['order_no'])) {
-            return ['code' => 30001, 'msg' => '缺少必要参数'];
-        }
-        $order_no = $params['order_no'];
-        $field = ['order_no','status','create_at','order_name','order_phone','receiver_address','desc'];
-        $order = OrderModel::query()->where(['order_no'=>$order_no])->select($field)->first()->toArray();
-        return ['code' => 0, 'msg' => '成功','data'=>$order];
     }
 
     //根据订单状态查订单
