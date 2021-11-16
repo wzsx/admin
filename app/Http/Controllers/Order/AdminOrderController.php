@@ -94,6 +94,11 @@ class AdminOrderController extends Controller
         if (empty($params['order_no'])||empty($params['logistics_company'])||empty($params['logistics_odd'])) {
             return ['code' => 30001, 'msg' => '缺少必要参数'];
         }
+        $order = OrderModel::query()->where(['order_no'=>$params['order_no']])->update(['logistics_company'=>$params['logistics_company'],'logistics_odd'=>$params['logistics_odd'],'status'=>3]);
+        if($order){
+            return ['code' => 0, 'msg' => '成功','data'=>[]];
+        }
+        return ['code' => 250001, 'msg' => '失败','data'=>[]];
     }
 }
 ?>

@@ -69,3 +69,4 @@ Route::get('/admin/orderlist','Order\AdminOrderController@webOrderList');
 Route::post('/admin/orderdetails','Order\AdminOrderController@webOrderdetails');
 Route::post('/admin/singleorder','Order\AdminOrderController@webSingleOrder');
 Route::post('/admin/statusorderlist','Order\AdminOrderController@webStatusOrderList');
+Route::post('/admin/deliverystatus','Order\AdminOrderController@webDeliveryStatus');//物流发货
