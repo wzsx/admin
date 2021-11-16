@@ -73,10 +73,27 @@ class AdminOrderController extends Controller
     public function webStatusOrderList(Request $request)
     {
         $params = $request->all();
-        $status = $params['status'];
         $field = ['order_no','status','create_at','order_name','order_phone','receiver_address','desc'];
-        $order = OrderModel::query()->select($field)->where(['status'=>$status])->orderBy('create_at','DESC')->paginate(10);
+        if(isset($params['status']) && isset($params['order_no'])){
+            $order = OrderModel::query()->select($field)->where(['status'=>$params['status']])->where('order_no','like','%'.$params['order_no'].'%')->orderBy('create_at','DESC')->paginate(10);
+            return ['code' => 0, 'msg' => '成功','data'=>$order];
+        }elseif(isset($params['status']) && !isset($params['order_no'])){
+            $order = OrderModel::query()->select($field)->where(['status'=>$params['status']])->orderBy('create_at','DESC')->paginate(10);
+            return ['code' => 0, 'msg' => '成功','data'=>$order];
+        }elseif (!isset($params['status']) && isset($params['order_no'])){
+            $order = OrderModel::query()->select($field)->where('order_no','like','%'.$params['order_no'].'%')->orderBy('create_at','DESC')->paginate(10);
+            return ['code' => 0, 'msg' => '成功','data'=>$order];
+        }
+        $order = OrderModel::query()->select($field)->orderBy('create_at','DESC')->paginate(10);
         return ['code' => 0, 'msg' => '成功','data'=>$order];
+    }
+
+    //填写物流信息 修改发货状态
+    public function webDeliveryStatus(Request $request){
+        $params = $request->all();
+        if (empty($params['order_no'])||empty($params['logistics_company'])||empty($params['logistics_odd'])) {
+            return ['code' => 30001, 'msg' => '缺少必要参数'];
+        }
     }
 }
 ?>
