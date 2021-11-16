@@ -22,7 +22,7 @@ class AdminOrderController extends Controller
     public function webOrderList()
     {
         $field = ['order_no','status','create_at','order_name','order_phone','receiver_address','desc'];
-        $order = OrderModel::query()->select($field)->orderBy('create_at','DESC')->get()->toArray();
+        $order = OrderModel::query()->select($field)->orderBy('create_at','DESC')->paginate(10);
         return ['code' => 0, 'msg' => '成功','data'=>$order];
     }
     //根据订单号查订单详情
@@ -30,10 +30,8 @@ class AdminOrderController extends Controller
     {
         $params = $request->all();
         $order_no = $params['order_no'];
-//        $status = $params['status'];
         $field = ['order_no','status','create_at','order_name','order_phone','receiver_address','desc','total_price','pay_at','shipments_at','complete_date','freight_price','coupon_cut','logistics_company','logistics_odd'];
         $fields = ['goods_id','goods_name','goods_img','goods_size','selling_price','number'];
-//        if ($status == 0) {
             $order = OrderModel::query()->where(['order_no'=>$order_no])->select($field)->first()->toArray();
             $order_goods = OrderGoodsModel::query()->where(['order_no'=>$order_no])->select($fields)->get()->toArray();
             $order_info = ['total_price'=>$order['total_price'],'order_no'=>$order['order_no'],'desc'=>$order['desc'],'create_at'=>$order['create_at'],'pay_at'=>$order['pay_at'],'shipments_at'=>$order['shipments_at'],'complete_date'=>$order['complete_date']];
@@ -56,7 +54,29 @@ class AdminOrderController extends Controller
             $cost_info = ['freight_price'=>$order['freight_price'],'total_price'=>$order['total_price'],'actual_amount'=>$actual_amount,'coupon_cut'=>$order['coupon_cut']];
             $logistics_info = ['logistics_company'=>$order['logistics_company'],'logistics_odd'=>$order['logistics_odd']];
             return ['code' => 2000, 'msg' => '成功','data'=>['order_info'=>$order_info,'consignee_info'=>$consignee_info,'goods_info'=>array_values($arr),'cost_info'=>$cost_info,'logistics_info'=>$logistics_info]];
-//        }
+    }
+
+    //根据订单号查询单条订单
+    public function webSingleOrder(Request $request)
+    {
+        $params = $request->all();
+        if (empty($params['order_no'])) {
+            return ['code' => 30001, 'msg' => '缺少必要参数'];
+        }
+        $order_no = $params['order_no'];
+        $field = ['order_no','status','create_at','order_name','order_phone','receiver_address','desc'];
+        $order = OrderModel::query()->where(['order_no'=>$order_no])->select($field)->first()->toArray();
+        return ['code' => 0, 'msg' => '成功','data'=>$order];
+    }
+
+    //根据订单状态查订单
+    public function webStatusOrderList(Request $request)
+    {
+        $params = $request->all();
+        $status = $params['status'];
+        $field = ['order_no','status','create_at','order_name','order_phone','receiver_address','desc'];
+        $order = OrderModel::query()->select($field)->where(['status'=>$status])->orderBy('create_at','DESC')->paginate(10);
+        return ['code' => 0, 'msg' => '成功','data'=>$order];
     }
 }
 ?>
