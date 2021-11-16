@@ -53,20 +53,14 @@ Route::get('/wx/ade','Wx\WxController@ades');
 
 //预订单
 Route::post('/order/beforehand','Order\OrderController@beforehandOrder');
-Route::get('/order/css','Order\OrderController@css');
-Route::post('/order/unpaid','Order\OrderController@unpaid');
 Route::post('/order/ifpay','Order\OrderController@ifpay');
-Route::post('/order/unshipped','Order\OrderController@unshipped');
 Route::post('/order/list','Order\OrderController@orderStatus');
-Route::get('/order/bss','Order\OrderController@bss');
 
 
 //
 Route::any('/wechat', 'WeChatController@serve');
 
 //后台
-Route::get('/admin/orderlist','Order\AdminOrderController@webOrderList');
 Route::post('/admin/orderdetails','Order\AdminOrderController@webOrderdetails');
-Route::post('/admin/singleorder','Order\AdminOrderController@webSingleOrder');
 Route::post('/admin/statusorderlist','Order\AdminOrderController@webStatusOrderList');
 Route::post('/admin/deliverystatus','Order\AdminOrderController@webDeliveryStatus');//物流发货
