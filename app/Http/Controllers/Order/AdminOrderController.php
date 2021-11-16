@@ -91,10 +91,10 @@ class AdminOrderController extends Controller
     //填写物流信息 修改发货状态
     public function webDeliveryStatus(Request $request){
         $params = $request->all();
-        if (empty($params['order_no'])||empty($params['logistics_company'])||empty($params['logistics_odd'])) {
+        if (empty($params['order_no'])||empty($params['logistics_odd'])) {
             return ['code' => 30001, 'msg' => '缺少必要参数'];
         }
-        $order = OrderModel::query()->where(['order_no'=>$params['order_no']])->update(['logistics_company'=>$params['logistics_company'],'logistics_odd'=>$params['logistics_odd'],'status'=>3]);
+        $order = OrderModel::query()->where(['order_no'=>$params['order_no']])->update(['logistics_odd'=>$params['logistics_odd'],'status'=>3]);
         if($order){
             return ['code' => 0, 'msg' => '成功','data'=>[]];
         }
