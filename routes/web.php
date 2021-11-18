@@ -31,8 +31,8 @@ Route::post('/sms/sendcode','Sms\SmsLogController@sendCode');
 Route::post('/user/register','AppUser\UserController@register');
 //商城
 Route::get('/category/goodscategorylist','Shop\GoodsCategoryController@goodsCategoryList');
-Route::post('/category/insert','Shop\GoodsCategoryController@goodsCategoryInsert');
-Route::post('/goods/insert','Shop\GoodsController@goodsInsert');
+Route::post('/admin/category/insert','Shop\GoodsCategoryController@goodsCategoryInsert');
+Route::post('/admin/goods/insert','Shop\GoodsController@goodsInsert');
 Route::get('/home/carouselimg','Shop\HomeGoodsController@homeCarouselImg');
 Route::get('/home/showimg','Shop\HomeGoodsController@homeShowImg');
 Route::get('/home/categoods','Shop\HomeGoodsController@homeCateGoods');

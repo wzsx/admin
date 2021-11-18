@@ -19,7 +19,7 @@ class GoodsController extends Controller
         $goods_lord_img = $params['goods_lord_img'];
         $goods_carousel = $params['goods_carousel'];//轮播图
         $goods_about = $params['goods_about'];
-        $goods_details_img = $params['goods_details_img'];
+        $goods_details_img = $params['goods_details'];
         $goods_size = $params['goods_size'];
         $goods_price = $params['goods_price'];
         $goods_cate = $params['goods_cate'];
