@@ -66,3 +66,6 @@ Route::post('/admin/statusorderlist','Order\AdminOrderController@webStatusOrderL
 Route::post('/admin/deliverystatus','Order\AdminOrderController@webDeliveryStatus');//物流发货
 Route::get('admin/category/list','Shop\GoodsCategoryController@categoryList');
 Route::get('admin/goods/list','Shop\GoodsController@adminGoodsList');
+Route::post('admin/goods/details','Shop\GoodsController@adminGoodsDetails');
+Route::post('admin/goods/ifdisable','Shop\GoodsController@adminIfDisable');
+Route::post('admin/goods/update','Shop\GoodsController@adminUpdateGoods');

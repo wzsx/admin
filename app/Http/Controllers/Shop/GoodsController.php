@@ -71,5 +71,54 @@ class GoodsController extends Controller
         $goods = GoodsModel::query()->whereNotIn('goods_cate',[4,5])->select($field)->get()->toArray();
         return ['code' => 0, 'msg' => '成功','data'=>$goods];
     }
+
+    //修改上下架
+    public function adminIfDisable(Request $request){
+        $params = $request->all();
+        $goods_id = $params['goods_id'];
+        $if_disable = $params['if_disable'];
+        $goods = GoodsModel::query()->where(['goods_id'=>$goods_id])->update(['if_disable'=>$if_disable]);
+        if($goods){
+            return ['code' => 0, 'msg' => '修改成功','data'=>[]];
+        }
+    }
+
+    //后台商品详情
+    public function adminGoodsDetails(Request $request){
+        $params = $request->all();
+        $goods_id = $params['goods_id'];
+        $field = ['goods_id','goods_name','goods_lord_img','goods_about','goods_details','goods_size','goods_price','goods_cate','if_show'];
+        $list = GoodsModel::query()->where(['goods_id'=>$goods_id])->select($field)->first()->toArray();
+        $carousel = GoodsCarouselModel::query()->where(['carousel_id'=>$goods_id])->select('goods_img')->get()->toArray();
+        $list['carousel'] = array_column($carousel,'goods_img');
+        return ['code' => 0, 'msg' => '成功','data'=>$list];
+    }
+
+    //编辑后台商品
+    public function adminUpdateGoods(Request $request){
+        $params = $request->all();
+        if (empty($params['goods_id'])||empty($params['goods_name'])||empty($params['goods_lord_img'])||empty($params['goods_about'])||empty($params['goods_details'])||empty($params['goods_size'])||empty($params['goods_price'])||empty($params['goods_cate'])||isset($params['if_show'])) {
+            return ['code' => 30001, 'msg' => '缺少必要参数'];
+        }
+        if(empty($params['goods_carousel'])){
+            $goods = GoodsModel::query()->where(['goods_id'=>$params['goods_id']])->update(['goods_name'=>$params['goods_name'],'goods_lord_img'=>$params['goods_lord_img'],'goods_about'=>$params['goods_about'],'goods_details'=>$params['goods_details'],'goods_size'=>$params['goods_size'],'goods_price'=>$params['goods_price'],'goods_cate'=>$params['goods_cate'],'if_show'=>$params['if_show']]);
+           if($goods){
+               return ['code' => 0, 'msg' => '修改成功','data'=>[]];
+           }
+            return ['code' => 20500, 'msg' => '修改失败','data'=>[]];
+        }else {
+            $goods_id = $params['goods_id'];
+            $goods_carousel = $params['goods_carousel'];//轮播图
+            GoodsCarouselModel::query()->where(['carousel_id' => $goods_id])->delete();
+            foreach ($goods_carousel as $key => $v) {
+                $carousel = GoodsCarouselModel::query()->insert(['carousel_id' => $goods_id, 'goods_img' => $v]);
+            }
+            $goods = GoodsModel::query()->where(['goods_id' => $params['goods_id']])->update(['goods_name' => $params['goods_name'], 'goods_lord_img' => $params['goods_lord_img'], 'goods_about' => $params['goods_about'], 'goods_details' => $params['goods_details'], 'goods_size' => $params['goods_size'], 'goods_price' => $params['goods_price'], 'goods_cate' => $params['goods_cate'], 'if_show' => $params['if_show']]);
+            if ($carousel || $goods) {
+                return ['code' => 0, 'msg' => '修改成功', 'data' => []];
+            }
+            return ['code' => 20500, 'msg' => '修改失败','data'=>[]];
+        }
+    }
 }
 ?>
