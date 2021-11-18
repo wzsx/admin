@@ -64,5 +64,12 @@ class GoodsController extends Controller
         $goods = GoodsModel::query()->whereNotIn('goods_cate',[4,5])->select($field)->get()->toArray();
         return ['code' => 0, 'msg' => '成功','data'=>$goods];
     }
+
+    //后台全部商品
+    public function adminGoodsList(){
+        $field = ['goods_id','goods_name','goods_lord_img','goods_price','goods_cate','goods_size','if_disable'];
+        $goods = GoodsModel::query()->whereNotIn('goods_cate',[4,5])->select($field)->get()->toArray();
+        return ['code' => 0, 'msg' => '成功','data'=>$goods];
+    }
 }
 ?>
