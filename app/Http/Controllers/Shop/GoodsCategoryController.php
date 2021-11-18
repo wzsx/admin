@@ -42,5 +42,10 @@ class GoodsCategoryController extends Controller
         return ['code' => 0, 'msg' => '成功','data'=>$data];
     }
 
+    //后台查询分类列表
+    public function categoryList(){
+        $list = GoodsCategoryModel::query()->select(['goods_category_id','goods_category'])->get()->toArray();
+        return ['code' => 0, 'msg' => '成功','data'=>$list];
+    }
 }
 ?>
