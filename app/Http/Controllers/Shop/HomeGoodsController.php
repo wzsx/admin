@@ -36,7 +36,7 @@ class HomeGoodsController extends Controller
         $field = ['goods_id','goods_name','goods_lord_img','goods_price','goods_cate'];
         $list = GoodsCategoryModel::query()->whereIn('goods_category_id',[1,2,3])->select(['goods_category_id','goods_category','goods_category_img'])->get()->toArray();
         $goods_category_id = array_column($list,'goods_category_id');
-        $goods = GoodsModel::query()->whereIn('goods_cate',$goods_category_id)->select($field)->get()->toArray();
+        $goods = GoodsModel::query()->where(['if_show'=>1,'if_disable'=>0])->whereIn('goods_cate',$goods_category_id)->select($field)->get()->toArray();
         $res =  array_column($list,null,'goods_category_id');
         $arr = [];
         foreach ($goods as $item){

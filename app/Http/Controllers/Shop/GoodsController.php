@@ -61,7 +61,7 @@ class GoodsController extends Controller
     //全部商品
     public function allGoods(){
         $field = ['goods_id','goods_name','goods_lord_img','goods_price','goods_cate'];
-        $goods = GoodsModel::query()->whereNotIn('goods_cate',[4,5])->select($field)->get()->toArray();
+        $goods = GoodsModel::query()->whereNotIn('goods_cate',[4,5])->where(['if_disable'=>0])->select($field)->get()->toArray();
         return ['code' => 0, 'msg' => '成功','data'=>$goods];
     }
 
