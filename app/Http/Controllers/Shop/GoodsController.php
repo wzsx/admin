@@ -14,10 +14,10 @@ class GoodsController extends Controller
     public function goodsInsert(Request $request)
     {
         $params = $request->all();
-        $goods_carousel= ['https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png'];
+//        $goods_carousel= ['https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png','https://image.kuaiqitong.com/3598phpjQARoC1634086598211013.png'];
         $goods_name = $params['goods_name'];
         $goods_lord_img = $params['goods_lord_img'];
-//        $goods_carousel = $params['goods_carousel'];//轮播图
+        $goods_carousel = $params['goods_carousel'];//轮播图
         $goods_about = $params['goods_about'];
         $goods_details_img = $params['goods_details_img'];
         $goods_size = $params['goods_size'];
