@@ -64,8 +64,8 @@ Route::any('/wechat', 'WeChatController@serve');
 Route::post('/admin/orderdetails','Order\AdminOrderController@webOrderdetails');
 Route::post('/admin/statusorderlist','Order\AdminOrderController@webStatusOrderList');
 Route::post('/admin/deliverystatus','Order\AdminOrderController@webDeliveryStatus');//物流发货
-Route::get('admin/category/list','Shop\GoodsCategoryController@categoryList');
-Route::get('admin/goods/list','Shop\GoodsController@adminGoodsList');
-Route::post('admin/goods/details','Shop\GoodsController@adminGoodsDetails');
-Route::post('admin/goods/ifdisable','Shop\GoodsController@adminIfDisable');
-Route::post('admin/goods/update','Shop\GoodsController@adminUpdateGoods');
+Route::get('/admin/category/list','Shop\GoodsCategoryController@categoryList');
+Route::get('/admin/goods/list','Shop\GoodsController@adminGoodsList');
+Route::post('/admin/goods/details','Shop\GoodsController@adminGoodsDetails');
+Route::post('/admin/goods/ifdisable','Shop\GoodsController@adminIfDisable');
+Route::post('/admin/goods/update','Shop\GoodsController@adminUpdateGoods');
