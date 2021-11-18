@@ -1,6 +1,8 @@
 <?php
 namespace App\services;
 use JohnLui\AliyunOSS;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 use Exception;
 use DateTime;
 class OSS {
@@ -33,6 +35,7 @@ class OSS {
             $this->AccessKeySecret
         );
     }
+
     /**
      * 使用外网上传文件
      * @param  string bucket名称

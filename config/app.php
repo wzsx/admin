@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         //
         Overtrue\LaravelWeChat\ServiceProvider::class,
+        Jacobcyl\AliOSS\AliOssServiceProvider::class,
     ],
 
     /*

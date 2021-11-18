@@ -5,11 +5,20 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '8412f21a35e44f6cdf324139ceb918d1afea014e',
+        'reference' => 'cf5d91d6a1da958c4f4359128571298184333a60',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
     'versions' => array(
+        'aliyuncs/oss-sdk-php' => array(
+            'pretty_version' => 'v2.4.3',
+            'version' => '2.4.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../aliyuncs/oss-sdk-php',
+            'aliases' => array(),
+            'reference' => '4ccead614915ee6685bf30016afb01aabd347e46',
+            'dev_requirement' => false,
+        ),
         'beyondcode/laravel-dump-server' => array(
             'pretty_version' => '1.3.0',
             'version' => '1.3.0.0',
@@ -334,6 +343,15 @@
                 0 => 'v5.8.38',
             ),
         ),
+        'jacobcyl/ali-oss-storage' => array(
+            'pretty_version' => '2.1.0',
+            'version' => '2.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jacobcyl/ali-oss-storage',
+            'aliases' => array(),
+            'reference' => 'c0cb9ba1d3faf22a1e04a03602aac90a187b5959',
+            'dev_requirement' => false,
+        ),
         'jakub-onderka/php-console-color' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -376,7 +394,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '8412f21a35e44f6cdf324139ceb918d1afea014e',
+            'reference' => 'cf5d91d6a1da958c4f4359128571298184333a60',
             'dev_requirement' => false,
         ),
         'laravel/tinker' => array(
