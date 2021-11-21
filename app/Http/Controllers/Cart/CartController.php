@@ -118,5 +118,20 @@ class CartController extends Controller
          CartModel::query()->where(['mid'=>$mid])->update(['is_selected'=>$is_selected]);
         return ['code' => 0, 'msg' => '操作成功','data'=>[]];
     }
+
+    //删除失效商品
+    public function deleteLoseGoods(Request $request){
+        $params = $request->all();
+        $mid = $params['mid'];
+        if (!$mid) {
+            return ['code' => 500001, 'msg' => '缺少必要参数'];
+        }
+        $cart = CartModel::query()->where(['mid'=>$mid])->select('goods_id')->get()->toArray();
+        if($cart){
+
+        }
+        var_dump(array_column($cart,'goods_id'));
+//        return ['code' => 0, 'msg' => '操作成功','data'=>[]];
+    }
 }
 ?>

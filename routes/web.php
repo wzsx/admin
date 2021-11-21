@@ -43,6 +43,7 @@ Route::post('/cart/add','Cart\CartController@addCart');
 Route::post('/cart/update','Cart\CartController@updateCart');
 Route::post('/cart/list','Cart\CartController@cartList');
 Route::post('/cart/checked','Cart\CartController@goodsChecked');
+Route::post('/cart/deleteloses','Cart\CartController@deleteLoseGoods');
 //Wx
 Route::get('/wx/code','Wx\WxController@codeSession');
 
@@ -69,3 +70,4 @@ Route::get('/admin/goods/list','Shop\GoodsController@adminGoodsList');
 Route::post('/admin/goods/details','Shop\GoodsController@adminGoodsDetails');
 Route::post('/admin/goods/ifdisable','Shop\GoodsController@adminIfDisable');
 Route::post('/admin/goods/update','Shop\GoodsController@adminUpdateGoods');
+Route::post('/admin/goods/delete','Shop\GoodsController@deleteGoods');
