@@ -32,6 +32,7 @@ class GoodsCategoryController extends Controller
     public function goodsCategoryList(){
         $list = GoodsCategoryModel::query()->whereIn('goods_category_id',[1,2,3])->select(['goods_category_id','goods_category','goods_category_img'])->get()->toArray();
         $arr = [
+            'goods_category_id'=> 0,
             'goods_category' => '全部商品',
             'goods_category_img'  => 'https://image.kuaiqitong.com/3603phpNkiQeG1633920334211011.png'
         ];

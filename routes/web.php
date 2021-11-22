@@ -38,6 +38,8 @@ Route::get('/home/showimg','Shop\HomeGoodsController@homeShowImg');
 Route::get('/home/categoods','Shop\HomeGoodsController@homeCateGoods');
 Route::post('/goods/details','Shop\GoodsController@goodsDetails');
 Route::get('/goods/all','Shop\GoodsController@allGoods');
+Route::post('/goods/search','Shop\GoodsController@goodsNameSelect');
+Route::post('/goods/pricerank','Shop\GoodsController@priceRank');
 //购物车
 Route::post('/cart/add','Cart\CartController@addCart');
 Route::post('/cart/update','Cart\CartController@updateCart');

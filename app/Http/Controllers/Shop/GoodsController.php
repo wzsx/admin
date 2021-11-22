@@ -133,5 +133,46 @@ class GoodsController extends Controller
         }
         return ['code' => 20500, 'msg' => '删除失败','data'=>[]];
     }
+
+    //小程序搜读全部商品接口
+    public function goodsNameSelect(Request $request){
+        $params = $request->all();
+        if (empty($params['goods_name'])) {
+            return ['code' => 30001, 'msg' => '搜索内容不能为空'];
+        }
+        $field = ['goods_id','goods_name','goods_lord_img','goods_price','goods_cate'];
+        $goodsList = GoodsModel::query()->where('goods_name','like','%'.$params['goods_name'].'%')->select($field)->get()->toArray();
+        if($goodsList){
+            return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
+        }
+        return ['code' => 20500, 'msg' => '查询失败','data'=>[]];
+    }
+
+    //小程序商品根据价格排序   status =1正序ASC  status =0倒序DESC
+    public function priceRank(Request $request){
+        $params = $request->all();
+        if(!isset($params['status']) && !isset($params['goods_category_id'])){
+            return ['code' => 30001, 'msg' => '缺少必要参数'];
+        }
+        $field = ['goods_id','goods_name','goods_lord_img','goods_price','goods_cate'];
+        if($params['status']==1 ){
+            if($params['goods_category_id']==0){
+                $goodsList = GoodsModel::query()->select($field)->orderBy('goods_price','DESC')->get()->toArray();
+                return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
+            }else{
+                $goodsList = GoodsModel::query()->where(['goods_cate'=>$params['goods_category_id']])->select($field)->orderBy('goods_price','DESC')->get()->toArray();
+                return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
+            }
+        }elseif ($params['status']==0 ){
+            if($params['goods_category_id']==0){
+                $goodsList = GoodsModel::query()->select($field)->orderBy('goods_price','ASC')->get()->toArray();
+                return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
+            }else{
+                $goodsList = GoodsModel::query()->where(['goods_cate'=>$params['goods_category_id']])->select($field)->orderBy('goods_price','ASC')->get()->toArray();
+                return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
+            }
+        }
+
+    }
 }
 ?>
