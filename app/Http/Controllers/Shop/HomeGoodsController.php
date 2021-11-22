@@ -16,7 +16,7 @@ class HomeGoodsController extends Controller
     {
 //        $field = ['goods_id','goods_lord_img'];
         $field = ['goods_id','home_carousel_img'];
-        $info = GoodsModel::query()->where(['goods_cate'=>4,'if_show'=>1])->select($field)->get()->toArray();
+        $info = GoodsModel::query()->where(['goods_cate'=>4,'if_show'=>1,'if_disable'=>0])->select($field)->get()->toArray();
         if($info){
             return ['code' => 0, 'msg' => '成功','data'=>$info];
         }
@@ -26,7 +26,7 @@ class HomeGoodsController extends Controller
     public function homeShowImg(){
 //        $field = ['goods_id','goods_lord_img'];
         $field = ['goods_id','home_show_img'];
-        $info = GoodsModel::query()->where(['goods_cate'=>5,'if_show'=>1])->select($field)->first()->toArray();
+        $info = GoodsModel::query()->where(['goods_cate'=>5,'if_show'=>1,'if_disable'=>0])->select($field)->first()->toArray();
         if($info){
             return ['code' => 0, 'msg' => '成功','data'=>$info];
         }

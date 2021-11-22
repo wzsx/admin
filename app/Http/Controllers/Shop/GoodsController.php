@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Shop;
+use App\Model\CartModel;
 use App\Model\GoodsCarouselModel;
 use App\Model\GoodsModel;
 use Illuminate\Http\Request;
@@ -126,7 +127,8 @@ class GoodsController extends Controller
             return ['code' => 30001, 'msg' => '缺少必要参数'];
         }
         $delete = GoodsModel::query()->where(['goods_id'=> $params['goods_id']])->delete();
-        if($delete){
+        $deleteCart = CartModel::query()->where(['goods_id'=>$params['goods_id']])->delete();
+        if($delete||$deleteCart){
             return ['code' => 0, 'msg' => '删除成功', 'data' => []];
         }
         return ['code' => 20500, 'msg' => '删除失败','data'=>[]];
