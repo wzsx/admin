@@ -141,7 +141,7 @@ class GoodsController extends Controller
             return ['code' => 30001, 'msg' => '搜索内容不能为空'];
         }
         $field = ['goods_id','goods_name','goods_lord_img','goods_price','goods_cate'];
-        $goodsList = GoodsModel::query()->where('goods_name','like','%'.$params['goods_name'].'%')->select($field)->get()->toArray();
+        $goodsList = GoodsModel::query()->where(['if_disable'=>0])->where('goods_name','like','%'.$params['goods_name'].'%')->select($field)->get()->toArray();
         if($goodsList){
             return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
         }
@@ -157,18 +157,18 @@ class GoodsController extends Controller
         $field = ['goods_id','goods_name','goods_lord_img','goods_price','goods_cate'];
         if($params['status']==1 ){
             if($params['goods_category_id']==0){
-                $goodsList = GoodsModel::query()->select($field)->orderBy('goods_price','DESC')->get()->toArray();
+                $goodsList = GoodsModel::query()->where(['if_disable'=>0])->select($field)->orderBy('goods_price','DESC')->get()->toArray();
                 return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
             }else{
-                $goodsList = GoodsModel::query()->where(['goods_cate'=>$params['goods_category_id']])->select($field)->orderBy('goods_price','DESC')->get()->toArray();
+                $goodsList = GoodsModel::query()->where(['goods_cate'=>$params['goods_category_id'],'if_disable'=>0])->select($field)->orderBy('goods_price','DESC')->get()->toArray();
                 return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
             }
         }elseif ($params['status']==0 ){
             if($params['goods_category_id']==0){
-                $goodsList = GoodsModel::query()->select($field)->orderBy('goods_price','ASC')->get()->toArray();
+                $goodsList = GoodsModel::query()->where(['if_disable'=>0])->select($field)->orderBy('goods_price','ASC')->get()->toArray();
                 return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
             }else{
-                $goodsList = GoodsModel::query()->where(['goods_cate'=>$params['goods_category_id']])->select($field)->orderBy('goods_price','ASC')->get()->toArray();
+                $goodsList = GoodsModel::query()->where(['goods_cate'=>$params['goods_category_id'],'if_disable'=>0])->select($field)->orderBy('goods_price','ASC')->get()->toArray();
                 return ['code' => 0, 'msg' => '成功','data'=>$goodsList];
             }
         }
