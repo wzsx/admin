@@ -73,3 +73,7 @@ Route::post('/admin/goods/details','Shop\GoodsController@adminGoodsDetails');
 Route::post('/admin/goods/ifdisable','Shop\GoodsController@adminIfDisable');
 Route::post('/admin/goods/update','Shop\GoodsController@adminUpdateGoods');
 Route::post('/admin/goods/delete','Shop\GoodsController@deleteGoods');
+
+//官网
+Route::post('/gw/insertdivision','Gw\GwWebController@insertDivision');
+Route::get('/gw/divisionlist','Gw\GwWebController@divisionList');

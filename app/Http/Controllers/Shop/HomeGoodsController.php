@@ -14,7 +14,6 @@ class HomeGoodsController extends Controller
     //首页轮播图
     public function homeCarouselImg()
     {
-//        $field = ['goods_id','goods_lord_img'];
         $field = ['goods_id','home_carousel_img'];
         $info = GoodsModel::query()->where(['goods_cate'=>4,'if_show'=>1,'if_disable'=>0])->select($field)->get()->toArray();
         if($info){
@@ -24,7 +23,6 @@ class HomeGoodsController extends Controller
     }
     //首页展示图
     public function homeShowImg(){
-//        $field = ['goods_id','goods_lord_img'];
         $field = ['goods_id','home_show_img'];
         $info = GoodsModel::query()->where(['goods_cate'=>5,'if_show'=>1,'if_disable'=>0])->select($field)->first()->toArray();
         if($info){
