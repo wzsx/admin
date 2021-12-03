@@ -75,5 +75,10 @@ Route::post('/admin/goods/update','Shop\GoodsController@adminUpdateGoods');
 Route::post('/admin/goods/delete','Shop\GoodsController@deleteGoods');
 
 //官网
-Route::post('/gw/insertdivision','Gw\GwWebController@insertDivision');
-Route::get('/gw/divisionlist','Gw\GwWebController@divisionList');
+Route::post('/gw/insertdivision','Gw\GwDivisionController@insertDivision');
+Route::post('/gw/updatedivision','Gw\GwDivisionController@updateDivision');
+Route::get('/gw/divisionlist','Gw\GwDivisionController@divisionList');
+Route::post('/gw/insertarticle','Gw\GwArticleController@insertArticle');
+Route::post('/gw/deletearticle','Gw\GwArticleController@deleteArticle');
+Route::post('/gw/updatearticle','Gw\GwArticleController@updateArticle');
+Route::get('/gw/articlelist','Gw\GwArticleController@articleList');

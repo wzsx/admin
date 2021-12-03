@@ -8,7 +8,7 @@ use App\Model\AdvisoryLogModel;
 use Illuminate\Routing\Router;
 //use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Redis;
-class GwWebController extends Controller
+class GwDoctorController extends Controller
 {
     public function index()
     {
@@ -50,8 +50,8 @@ class GwWebController extends Controller
     //删除科室
     public function deleteSection(Request $request)
     {
-        $section = $request->input('section');
-        $delete = DoctorSectionModel::query()->where('section', $section)->delete();
+        $division = $request->input('division_id');
+        $delete = DivisionModel::query()->where('division_id', $division)->delete();
         if ($delete) {
             return ['code' => 40001, 'msg' => '删除失败', 'data' => []];
         }
