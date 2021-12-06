@@ -41,9 +41,9 @@ class GwArticleController extends Controller
         $article_id = $request->input('article_id');
         $delete = ArticleInfoModel::query()->where('article_id', $article_id)->delete();
         if ($delete) {
-            return ['code' => 40001, 'msg' => '删除失败', 'data' => []];
+            return ['code' => 0, 'msg' => '删除成功'];
         }
-        return ['code' => 0, 'msg' => '删除成功'];
+        return ['code' => 40001, 'msg' => '删除失败', 'data' => []];
     }
 
     //修改文章

@@ -82,6 +82,7 @@ class WebController extends Controller
         return view('web.list',$data);
 
     }
+
 }
 ?>
 
