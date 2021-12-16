@@ -228,5 +228,13 @@ class OrderController extends Controller
             return ['code' => 0, 'msg' => '成功','data'=>array_values($arr)];
         }
     }
+
+    public function ssa(){
+        $appId = config('wechat.payment.default.app_id');
+        var_dump($appId);
+//        $url=config('wechat.payment');
+//        var_dump($url);
+//        return $url;
+}
 }
 ?>

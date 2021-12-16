@@ -19,7 +19,9 @@ class OpenCrossHttp
         $origin = $request->server('HTTP_ORIGIN') ? $request->server('HTTP_ORIGIN') : '';
         $allow_origin = [
                 'http://localhost:8080',
-                'http://localhost:22'
+                'http://localhost:22',
+                'https://api.kuaiqitong.com:8080',
+                'https://api.kuaiqitong.com:22',
         ];
         if (in_array($origin, $allow_origin)) {
             $response->header('Access-Control-Allow-Origin', $origin);

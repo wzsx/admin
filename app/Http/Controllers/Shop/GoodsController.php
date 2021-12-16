@@ -174,5 +174,12 @@ class GoodsController extends Controller
         }
 
     }
+    public function ares(){
+//        $argc =  config('wechat.official_account');
+        $argc =  config('wechat.route');
+//        $ace =getenv();
+//        var_dump('path/to/cert/apiclient_cert.pem');
+                var_dump($argc);
+    }
 }
 ?>
