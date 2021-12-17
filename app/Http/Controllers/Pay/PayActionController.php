@@ -49,4 +49,20 @@ class PayActionController extends Controller
 
         return $response;
     }
+
+//    public function callback()
+//    {
+//        $this->wxpay = app('easywechat.payment');
+//        return $this->wxpay->handlePaidNotify(
+//            function ($message, $fail) {
+//                if ($message['result_code'] === 'FAIL') {
+//                    logger()->warning('WXPAY_CALLBACK', ['FAIL', $message]);
+//                    return true;
+//                } else if ($message['return_code'] === 'SUCCESS') {
+//                    // TODO: 你的发货逻辑
+//                    return true;
+//                }
+//            }
+//        );
+//    }
 }
