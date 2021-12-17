@@ -30,7 +30,7 @@ class PayController extends Controller
             'total_fee' => 1,
             'spbill_create_ip' => Request()->getClientIp(), // 可选，如不传该参数，SDK 将会自动获取相应 IP 地址
             'notify_url' => 'https://api.kuaiqitong.com/wxpay/pay_action', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
-            'trade_type' => 'NATIVE', // 请对应换成你的支付方式对应的值类型
+            'trade_type' => 'JSAPI', // 请对应换成你的支付方式对应的值类型
             // 'openid' => 'oUpF8uMuAJO_M2pxb1Q9zNjxxxxx',
         ]);
 
