@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Pay;
 use App\Http\Controllers\Controller;
+use App\Model\OrderModel;
 use Illuminate\Http\Request;
 use App\Model\ShopUserModel;
 use EasyWeChat\Factory;
@@ -12,9 +13,10 @@ class PayController extends Controller
     public function pay(Request $request)
     {
         $params = $request->all();
-        if(!isset($params['mid']) || !isset($params['order_no']) || !isset($params['total_price'])){
+        if(!isset($params['mid']) || !isset($params['order_no'])){
             return ['code' => 30001, 'msg' => '缺少必要参数'];
         }
+        $total_price = OrderModel::query()->where(['order_no'=>$params['order_no']])->value('total_price');
         $openid = ShopUserModel::query()->where(['mid'=>$params['mid']])->value('openid');
 //        $openid = 'oc0vy4jOd6EdoUQbklJk9HxHSe3Q';
         $config = [
@@ -36,7 +38,7 @@ class PayController extends Controller
             'body' => '商品',
             'out_trade_no' => $params['order_no'],
 //            'out_trade_no' => time(),
-            'total_fee' =>bcmul($params['total_price'],100) ,
+            'total_fee' =>bcmul($total_price,100) ,
 //            'total_fee' => 1,
             'spbill_create_ip' => Request()->getClientIp(), // 可选，如不传该参数，SDK 将会自动获取相应 IP 地址
             'notify_url' => 'https://api.kuaiqitong.com/wxpay/pay_action', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
