@@ -36,7 +36,7 @@ class PayController extends Controller
             'body' => '商品',
             'out_trade_no' => $params['order_no'],
 //            'out_trade_no' => time(),
-            'total_fee' =>bcmul($params['total_price'],100,2) ,
+            'total_fee' =>bcmul($params['total_price'],100) ,
 //            'total_fee' => 1,
             'spbill_create_ip' => Request()->getClientIp(), // 可选，如不传该参数，SDK 将会自动获取相应 IP 地址
             'notify_url' => 'https://api.kuaiqitong.com/wxpay/pay_action', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
