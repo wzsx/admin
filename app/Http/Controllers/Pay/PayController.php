@@ -53,8 +53,7 @@ class PayController extends Controller
             ];
 
             $pay['paySign'] = generate_sign($pay, '13949147108Dfcw18703979016Dfcw77');
-
-            return $pay;
+            return ['code' => 200, 'msg' => '成功', 'data' => $pay];
         } else {
             $unify['return_code'] = 'FAIL';
             return $unify;
