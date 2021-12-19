@@ -45,7 +45,7 @@ class PayController extends Controller
         ]);
         if ($unify['return_code'] === 'SUCCESS' && !isset($unify['err_code'])) {
             $pay = [
-                'appId' =>'wx5c3075128baa7866',
+//                'appId' =>'wx5c3075128baa7866',
                 'timeStamp' => (string) time(),
                 'nonceStr' => $unify['nonce_str'],
                 'package' => 'prepay_id=' . $unify['prepay_id'],
