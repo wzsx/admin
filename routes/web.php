@@ -63,8 +63,8 @@ Route::get('/goods/ares','Shop\GoodsController@ares');
 
 //
 Route::any('/wechat', 'WeChatController@serve');
-Route::get('/pay', 'Pay\PayController@pay');
-Route::get('/wxpay/pay_action', 'Pay\PayActionController@action');
+Route::post('/pay', 'Pay\PayController@pay');
+Route::any('/wxpay/pay_action', 'Pay\PayActionController@action');
 //后台
 Route::post('/admin/orderdetails','Order\AdminOrderController@webOrderdetails');
 Route::post('/admin/statusorderlist','Order\AdminOrderController@webStatusOrderList');
