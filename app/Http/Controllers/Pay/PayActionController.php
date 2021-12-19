@@ -50,6 +50,7 @@ class PayActionController extends Controller
                 return $fail('通信失败，请稍后再通知我');
             }
 
+
             // 更新订单状态之类的信息后 保存一下
 
             return true; // 返回处理完成
