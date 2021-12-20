@@ -29,7 +29,7 @@ class PayController extends Controller
             'cert_path'          => 'path/to/cert/apiclient_cert.pem', // XXX: 绝对路径！！！！
             'key_path'           => 'path/to/cert/apiclient_key.pem',      // XXX: 绝对路径！！！！
 
-            'notify_url'         => '默认的订单回调地址',     // 你也可以在下单时单独设置来想覆盖它
+            'notify_url'         => 'https://api.kuaiqitong.com/wxpay/pay_action',     // 你也可以在下单时单独设置来想覆盖它
         ];
 
         $app = Factory::payment($config);
@@ -37,9 +37,7 @@ class PayController extends Controller
         $unify = $app->order->unify([
             'body' => '商品',
             'out_trade_no' => $params['order_no'],
-//            'out_trade_no' => time(),
             'total_fee' =>bcmul($total_price,100) ,
-//            'total_fee' => 1,
             'spbill_create_ip' => Request()->getClientIp(), // 可选，如不传该参数，SDK 将会自动获取相应 IP 地址
             'notify_url' => 'https://api.kuaiqitong.com/wxpay/pay_action', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             'trade_type' => 'JSAPI', // 请对应换成你的支付方式对应的值类型
@@ -47,7 +45,7 @@ class PayController extends Controller
         ]);
         if ($unify['return_code'] === 'SUCCESS' && !isset($unify['err_code'])) {
             $pay = [
-//                'appId' =>'wx5c3075128baa7866',
+                'appId' =>'wx5c3075128baa7866',
                 'timeStamp' => (string) time(),
                 'nonceStr' => $unify['nonce_str'],
                 'package' => 'prepay_id=' . $unify['prepay_id'],
@@ -55,7 +53,13 @@ class PayController extends Controller
             ];
 
             $pay['paySign'] = generate_sign($pay, '13949147108Dfcw18703979016Dfcw77');
-            return ['code' => 200, 'msg' => '成功', 'data' => $pay];
+            $data = [
+                'timeStamp' => $pay['timeStamp'],
+                'nonceStr' => $pay['nonceStr'],
+                'package' => $pay['package'],
+                'signType' => 'MD5',
+            ];
+            return ['code' => 200, 'msg' => '成功', 'data' => $data];
         } else {
             $unify['return_code'] = 'FAIL';
             return $unify;
