@@ -58,6 +58,7 @@ class PayController extends Controller
                 'nonceStr' => $pay['nonceStr'],
                 'package' => $pay['package'],
                 'signType' => 'MD5',
+                'paySign' => $pay['paySign']
             ];
             return ['code' => 200, 'msg' => '成功', 'data' => $data];
         } else {
