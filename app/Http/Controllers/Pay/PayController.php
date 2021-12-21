@@ -66,4 +66,8 @@ class PayController extends Controller
             return $unify;
         }
     }
+
+    public function sda(){
+        var_dump(date('Y-m-d H:i:s', strtotime('-10days')));
+    }
 }

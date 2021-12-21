@@ -91,3 +91,6 @@ Route::post('/gw/doctordetails','Gw\GwDoctorController@doctorDetails');
 Route::post('/gw/insertdoctor','Gw\GwDoctorController@insertDoctor');
 Route::post('/gw/deletedoctor','Gw\GwDoctorController@deleteDoctor');
 Route::post('/gw/updatedoctor','Gw\GwDoctorController@updateDoctor');
+
+
+Route::get('/sda', 'Pay\PayController@sda');
