@@ -68,7 +68,7 @@ class PayController extends Controller
     }
 
     public function sda(){
-//        var_dump(date('Y-m-d H:i:s', strtotime('-10days')));
+        var_dump(date('Y-m-d H:i:s', strtotime('-10days')));
         $order_no = OrderModel::query()->where(['status'=>3])->select('order_no')->get()->toArray();
         var_dump($order_no);
         $a = OrderModel::query()->whereIn('order_no',$order_no)->whereDate('shipments_at','>=',date('Y-m-d H:i:s', strtotime('-15days')))->select('*')->get()->toArray();
