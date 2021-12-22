@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('send:task')->cron('0 15 10 ? * *');
+        $schedule->command('send:task')->cron('*/10,*/40 */1 * * *');
 //        $schedule->command('send:task')->cron();
     }
 
