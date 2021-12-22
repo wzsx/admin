@@ -41,7 +41,7 @@ class SendTask extends Command
         //
         $order_no = OrderModel::query()->where(['status'=>3])->select('order_no')->get()->toArray();
         if($order_no){
-            OrderModel::query()->whereIn('order_no',$order_no)->where('shipments_at','>=',date('Y-m-d H:i:s', strtotime('-15days')))->update(['status'=>4,'complete_date'=>date('Y-m-d H:i:s')]);
+            OrderModel::query()->whereIn('order_no',$order_no)->where('shipments_at','<=',date('Y-m-d H:i:s', strtotime('-15days')))->update(['status'=>4,'complete_date'=>date('Y-m-d H:i:s')]);
         }
     }
 }
