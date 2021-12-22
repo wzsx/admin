@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('send:task')->cron('1 0 0 * *');
+        $schedule->command('send:task')->cron('0 15 10 ? * *');
 //        $schedule->command('send:task')->cron();
     }
 
@@ -43,3 +43,4 @@ class Kernel extends ConsoleKernel
         require base_path('routes/console.php');
     }
 }
+
