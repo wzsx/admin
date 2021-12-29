@@ -60,6 +60,8 @@ Route::post('/order/ifpay','Order\OrderController@ifpay');
 Route::post('/order/list','Order\OrderController@orderStatus');
 Route::get('/order/ssa','Order\OrderController@ssa');
 Route::get('/goods/ares','Shop\GoodsController@ares');
+Route::post('/order/cancel','Order\OrderController@cancelOrder');
+Route::post('/order/affirm','Order\OrderController@affirmOrder');
 
 //
 Route::any('/wechat', 'WeChatController@serve');

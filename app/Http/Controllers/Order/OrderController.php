@@ -229,6 +229,36 @@ class OrderController extends Controller
         }
     }
 
+    //取消未支付订单
+    public function cancelOrder(Request $request){
+        $params = $request->all();
+        $mid = $params['mid'];
+        $order_no = $params['order_no'];
+        if (!$mid || !$order_no) {
+            return ['code' => 500001, 'msg' => '缺少必要参数'];
+        }
+        $updata = OrderModel::query()->where(['order_no'=>$order_no,'mid'=>$mid])->update(['status'=>0]);
+        if($updata){
+            return ['code' => 0, 'msg' => '取消订单成功','data'=>[]];
+        }
+        return ['code' => 500004, 'msg' => '取消订单失败'];
+    }
+
+    //确认收货
+    public function affirmOrder(Request $request){
+        $params = $request->all();
+        $mid = $params['mid'];
+        $order_no = $params['order_no'];
+        if (!$mid || !$order_no) {
+            return ['code' => 500001, 'msg' => '缺少必要参数'];
+        }
+        $updata = OrderModel::query()->where(['order_no'=>$order_no,'mid'=>$mid])->update(['status'=>4,'complete_date'=>date('Y-m-d H:i:s')]);
+        if($updata){
+            return ['code' => 0, 'msg' => '订单已完成','data'=>[]];
+        }
+        return ['code' => 500004, 'msg' => '订单确认失败'];
+    }
+
     public function ssa(){
         $appId = config('wechat.payment.default.app_id');
         var_dump($appId);
